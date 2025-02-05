@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Tilda';
+  src: url('../assets/Tilda-Petite.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.moderat-bold {
+  font-family: "mr-darcy", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -10,6 +24,84 @@
 
 img {
   border-radius: 4px;
+}
+
+.background {
+  background-color: #1E783D;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.above-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+
+}
+
+.footer-area {
+  padding: 12px 0;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  background-color: #00CF77;
+  width: 100%;
+}
+
+.footer-button {
+  background-color: #1E783D;
+  border-radius: 4px;
+  padding: 4px 24px;
+  border: 0;
+}
+
+.footer-input {
+  padding: 4px 12px;
+  width: 250px;
+  border: 0;
+  margin: 0;
+}
+
+.sign-up-text {
+  font-size: 14px;
+}
+
+@media (max-width: 820px) {
+  .logo {
+    width: 95% !important;
+  }
+
+  .footer-area {
+    background-color: #00CF77;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 8px 0;
+  }
+
+  .sign-up-text {
+    font-size: 8px;
+    text-align: center;
+  }
+
+  .above-footer {
+    padding: 0 12px;
+  }
 }
 
 /*
@@ -127,6 +219,7 @@ aside li {
   pointer-events: auto;
   visibility: visible;
 }
+
 /* reveal aside */
 .overlay.expanded aside {
   transform: translateX(calc(var(--aside-width) * -1));
@@ -138,7 +231,7 @@ button.reset {
   font-size: inherit;
 }
 
-button.reset > * {
+button.reset>* {
   margin: 0;
 }
 
@@ -183,6 +276,7 @@ button.reset:hover:not(:has(> *)) {
 .header-menu-desktop {
   display: none;
   grid-gap: 1rem;
+
   @media (min-width: 45em) {
     display: flex;
     grid-gap: 1rem;
@@ -276,6 +370,7 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   display: flex;
 }
+
 /*
 * --------------------------------------------------
 * components/Search
@@ -342,6 +437,7 @@ button.reset:hover:not(:has(> *)) {
 
 .featured-collection-image {
   aspect-ratio: 1 / 1;
+
   @media (min-width: 45em) {
     aspect-ratio: 16 / 9;
   }
@@ -357,6 +453,7 @@ button.reset:hover:not(:has(> *)) {
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
+
   @media (min-width: 45em) {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -390,6 +487,7 @@ button.reset:hover:not(:has(> *)) {
 .collection-description {
   margin-bottom: 1rem;
   max-width: 95%;
+
   @media (min-width: 45em) {
     max-width: 600px;
   }
@@ -414,6 +512,7 @@ button.reset:hover:not(:has(> *)) {
 */
 .product {
   display: grid;
+
   @media (min-width: 45em) {
     grid-template-columns: 1fr 1fr;
     grid-gap: 4rem;

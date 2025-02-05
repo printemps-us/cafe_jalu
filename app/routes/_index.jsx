@@ -2,12 +2,13 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-
+import Logo from '~/components/Logo';
+import bg from '~/assets/cafejalubackground.png';
 /**
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Maison Passerelle'}];
+  return [{title: 'Salon Vert'}];
 };
 
 /**
@@ -154,26 +155,20 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="background">
+    <div className="background" style={{ backgroundImage: `url(${bg})` }}>
       <div className="main-area">
-        <Image
-          className="logo"
-          src={
-            'https://cdn.shopify.com/s/files/1/0581/1011/5943/files/MaisonPasser.svg?v=1737053887'
-          }
-          width={'60%'}
-          sizes="(min-width: 35em) 60vw, 70vw"
-          alt="Maison Passerelle Logo"
-        ></Image>
+        <div className="w-[450px]">
+          <Logo></Logo>
+        </div>
         <p
           className="moderat-bold"
-          style={{fontSize: '1.5rem', color: '#e8d09b'}}
+          style={{fontSize: '1rem', color: '#00CF77'}}
         >
           Opening March 2025
         </p>
-        <p className="moderat-bold" style={{color: '#e8d09b'}}>
+        {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
-        </p>
+        </p> */}
       </div>
       <div className="footer-container">
         <div className="above-footer">
@@ -188,9 +183,9 @@ export default function Homepage() {
               width={42}
             />
           </a>
-          <p className="moderat-bold sign-up-text" style={{color: '#e8d09b'}}>
-            Maison Passerelle is part of Printemps new york, For more
-            information sign up for our newsletter
+          <p className="moderat-bold sign-up-text" style={{color: '#00CF77'}}>
+            Cafe Jalu is part of Printemps new york, For more information sign
+            up for our newsletter
           </p>
         </div>
         <form onSubmit={handleSubmit} style={{width: '100%'}}>
@@ -219,7 +214,7 @@ export default function Homepage() {
             ) : (
               <input
                 {...inputProps}
-                className="moderat-bold footer-input"
+                className="moderat-bold footer-input bg-white"
                 style={{fontSize: '12px'}}
               ></input>
             )}

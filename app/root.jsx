@@ -157,6 +157,7 @@ export function Layout({children}) {
         <link rel="stylesheet" href={tailwindCss}></link>
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link rel="stylesheet" href="https://use.typekit.net/eiq4ccg.css"></link>
         <Meta />
         <Links />
       </head>
