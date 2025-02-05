@@ -155,7 +155,7 @@ export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
   return (
-    <div className="background" style={{ backgroundImage: `url(${bg})` }}>
+    <div className="background" style={{backgroundImage: `url(${bg})`}}>
       <div className="main-area">
         <div className="w-[450px]">
           <Logo></Logo>
