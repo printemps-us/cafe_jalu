@@ -24,6 +24,8 @@ export default async function handleRequest(
     },
     styleSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'],
     fontSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'], // Allow fonts
+    scriptSrc: ['https://eu2-api.eng.bloomreach.com'],
+    connectSrc: ['https://eu2-api.eng.bloomreach.com'],
   });
 
   const body = await renderToReadableStream(
