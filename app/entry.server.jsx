@@ -22,6 +22,10 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    styleSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'],
+    fontSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'], // Allow fonts
+    scriptSrc: ['https://eu2-api.eng.bloomreach.com'],
+    connectSrc: ['https://eu2-api.eng.bloomreach.com'],
   });
 
   const body = await renderToReadableStream(
