@@ -177,7 +177,7 @@ export function Layout({children}) {
           children
         )}
         <ScrollRestoration nonce={nonce} />
-        <Script src="app/components/functions/bloomreach.js" />
+        <Script src="/bloomreach.js" />
         <Scripts nonce={nonce} />
       </body>
     </html>
