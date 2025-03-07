@@ -61,7 +61,7 @@ function loadDeferredData({context}) {
 }
 
 export default function Homepage() {
-  const [form, setForm] = useState({email: ''});
+  const [email, setEmail] = useState('');
   const [state, setState] = useState({
     isWaiting: false,
     isSubmitted: false,
@@ -82,74 +82,24 @@ export default function Homepage() {
   console.log(state);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-    const email = formData.get('email'); // Correct way to get the email field value
-
-    console.log(formData);
-
-    setState({
-      isWaiting: true,
+    console.log('tirrger');
+    exponea.identify(
+      {email_id: email.toLowerCase()},
+      {
+        email: email.toLowerCase(),
+        data_source: 'restaurant',
+      },
+    );
+    exponea.track('consent', {
+      category: 'email',
+      valid_until: 'unlimited',
+      action: 'accept',
+      data_source: 'restaurant',
     });
-
-    // Validate email before submitting
-    if (validEmail.test(email)) {
-      fetch(url, {
-        headers: {Accept: 'application/json'},
-        method: 'POST',
-        body: formData,
-        // Remove mode: 'no-cors' as it disables response access
-      })
-        .then((response) => {
-          // Check response status
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-
-          setState({
-            isWaiting: false,
-            isSubmitted: true,
-          });
-
-          // Clear form and reset state after a delay
-          setTimeout(() => {
-            clearInput();
-            setState({
-              isWaiting: false,
-              isSubmitted: false,
-            });
-          }, 5000);
-        })
-        .catch((err) => {
-          setState({
-            error: err,
-            isError: true,
-          });
-          console.error('Submission error:', err); // Optionally log the error for debugging
-        });
-    } else {
-      // If the email is not valid, handle the error
-      setState({
-        error: 'Invalid email address',
-        isError: true,
-      });
-    }
-  };
-
-  const handleChange = (e) => {
-    setForm({...form, [e.target.name]: e.target.value});
-  };
-
-  const inputProps = {
-    onChange: handleChange,
-    value: form.email,
-    name: 'email',
-    id: 'email',
-    type: 'email',
-    required: true,
-    placeholder: 'Enter email address',
-    'data-name': 'email',
+    setState({
+      isWaiting: false,
+      isSubmitted: true,
+    });
   };
 
   /** @type {LoaderReturnData} */
@@ -173,14 +123,14 @@ export default function Homepage() {
       <div className="footer-container">
         <div className="above-footer">
           <a
-            href="https://urlgeni.us/instagram/maisonpasserellenyc"
+            href="https://urlgeni.us/instagram/cafejalu"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image
-              src="https://cdn.shopify.com/s/files/1/0581/1011/5943/files/IG_LOGO.png?v=1736792345"
+              src="https://cdn.shopify.com/s/files/1/0811/8891/3345/files/F_BLandingPages_IG_Colors-03.png?v=1741378937"
               alt="Instagram Logo"
-              width={42}
+              width={80}
             />
           </a>
           <p className="moderat-bold sign-up-text" style={{color: '#00CF77'}}>
@@ -188,50 +138,48 @@ export default function Homepage() {
             up for our newsletter
           </p>
         </div>
-        <form onSubmit={handleSubmit} style={{width: '100%'}}>
-          {/* Hidden Fields */}
-          <input type="hidden" name="u" value="1" data-name="u" />
-          <input type="hidden" name="f" value="1" data-name="f" />
-          <input type="hidden" name="s" data-name="s" />
-          <input type="hidden" name="c" value="0" data-name="c" />
-          <input type="hidden" name="m" value="0" data-name="m" />
-          <input type="hidden" name="act" value="sub" data-name="act" />
-          <input type="hidden" name="v" value="2" data-name="v" />
-          <div className="footer-area">
+
+        <div className="footer-area">
+          <p
+            className="moderat-bold"
+            style={{fontSize: '14px', color: 'black', marginRight: '8px'}}
+          >
+            {state.isSubmitted ? 'Merci!' : 'Sign up for our newsletter'}
+          </p>
+          {state.isSubmitted ? (
             <p
               className="moderat-bold"
               style={{fontSize: '14px', color: 'black', marginRight: '8px'}}
             >
-              {state.isSubmitted ? 'Merci!' : 'Sign up for our newsletter'}
+              Check your email for updates
             </p>
-            {state.isSubmitted ? (
+          ) : (
+            <input
+              value={email}
+              placeholder="Enter email address"
+              onChange={(e) => setEmail(e.target.value)}
+              className="moderat-bold footer-input bg-white"
+              style={{fontSize: '12px'}}
+            ></input>
+          )}
+          {state.isSubmitted ? (
+            <p></p>
+          ) : (
+            <button
+              className="footer-button"
+              onClick={handleSubmit}
+              disabled={!validEmail.test(email)}
+              style={{cursor: !validEmail.test(email) ? 'auto' : 'pointer'}}
+            >
               <p
                 className="moderat-bold"
-                style={{fontSize: '14px', color: 'black', marginRight: '8px'}}
+                style={{fontSize: '12px', color: 'white'}}
               >
-                Check your email for updates
+                Submit
               </p>
-            ) : (
-              <input
-                {...inputProps}
-                className="moderat-bold footer-input bg-white"
-                style={{fontSize: '12px'}}
-              ></input>
-            )}
-            {state.isSubmitted ? (
-              <p></p>
-            ) : (
-              <button className="footer-button">
-                <p
-                  className="moderat-bold"
-                  style={{fontSize: '12px', color: 'white'}}
-                >
-                  Submit
-                </p>
-              </button>
-            )}
-          </div>
-        </form>
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

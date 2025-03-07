@@ -24,7 +24,15 @@ export default async function handleRequest(
     },
     styleSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'],
     fontSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'], // Allow fonts
-    scriptSrc: ['https://eu2-api.eng.bloomreach.com'],
+    scriptSrc: [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://formspree.io/',
+      "'unsafe-eval'",
+      'https://eu2-api.eng.bloomreach.com',
+      'https://widgets.resy.com', // Add this line to allow the Resy script
+      // Include other allowed domains for script loading
+    ],
     connectSrc: ['https://eu2-api.eng.bloomreach.com'],
   });
 
