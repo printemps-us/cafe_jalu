@@ -8,7 +8,7 @@ import bg from '~/assets/cafejalubackground.png';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Salon Vert'}];
+  return [{title: 'Cafe Jalu'}];
 };
 
 /**
