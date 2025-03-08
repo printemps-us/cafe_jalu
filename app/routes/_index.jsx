@@ -107,7 +107,7 @@ export default function Homepage() {
   return (
     <div className="background" style={{backgroundImage: `url(${bg})`}}>
       <div className="main-area">
-        <div className="w-[450px]">
+        <div className="responsive-logo">
           <Logo></Logo>
         </div>
         <p
