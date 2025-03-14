@@ -79,10 +79,7 @@ export default function Homepage() {
     setForm({email: ''});
   };
 
-  console.log(state);
-
   const handleSubmit = (e) => {
-    console.log('tirrger');
     exponea.identify(
       {email_id: email.toLowerCase()},
       {
