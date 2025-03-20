@@ -6,6 +6,7 @@ import {Link, useLocation} from '@remix-run/react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import SmoothScroll from '~/components/SmoothScroll';
+import bg from '~/assets/cafejalubackground.png';
 export async function loader(args) {
   const staticData = await loadStaticData(args);
 
@@ -105,7 +106,7 @@ function menu() {
           id: section.id + '_trigger',
           trigger: section,
           start: '-75px 25%',
-          end: '40% 25%',
+          end: '100% 25%',
           toggleActions: 'play none none reverse',
           onEnter: () => setCurrentSection(section.id), // Set current section when entering
           onEnterBack: () => setCurrentSection(section.id),
@@ -137,11 +138,11 @@ function menu() {
     <SmoothScroll>
       <div
         className="p-14 flex justify-center w-full"
-        style={{backgroundColor: '#006f43'}}
+        style={{backgroundImage: `url(${bg})`}}
       >
-        <div className="responsive-logo">
+        <Link to="/" className="responsive-logo">
           <Logo></Logo>
-        </div>
+        </Link>
       </div>
       <div
         ref={roomsHeaderRef}
@@ -152,17 +153,17 @@ function menu() {
         {data.staticData.content?.references.nodes.map((item, index) => (
           <button
             key={index}
-            className="text-center w-[100px] flex flex-col gap-3 cursor-pointer items-center link"
+            className="text-center w-[100px]  flex flex-col gap-3 cursor-pointer items-center link"
             onClick={(e) => handleLinkClick(e, `#${item.link?.value}`)}
           >
             <div
               className={`${
                 currentSection == item.link?.value ? 'border-2' : ''
-              } border-white-4 h-[100px] p-0.5 rounded-full room`}
+              } border-white-4 h-[100px] p-0.5 w-full rounded-full room`}
             >
               <div className="rounded-full w-full h-full overflow-hidden ">
                 <Image
-                  className="h-full"
+                  className="h-full w-full"
                   src={item.image?.reference?.image.url}
                   alt={item.image?.reference?.image.altText}
                   sizes="(min-width: 2em) 5em, 10em"
@@ -182,7 +183,7 @@ function menu() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-[120px] py-[50px] my-[60px]">
+      <div className="flex flex-col items-center gap-[120px] pt-[50px] pb-[300px] my-[60px]">
         {data?.staticData.content?.references?.nodes.map((item, index) => (
           <div
             key={`${item.title?.value}_title_${index}`}
