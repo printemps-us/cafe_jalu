@@ -106,19 +106,25 @@ export default function Homepage() {
   return (
     <div className="background" style={{backgroundImage: `url(${bg})`}}>
       <div className="main-area">
-        <div className="responsive-logo">
+        <div className="responsive-logo" style={{marginBottom: 12}}>
           <Logo></Logo>
         </div>
-        {/* <p
+        <p
           className="moderat-bold"
-          style={{fontSize: '1rem', color: '#00CF77'}}
+          style={{fontSize: '1.2rem', color: '#00CF77'}}
         >
-          Opening Soon
-        </p> */}
+          HOURS:
+        </p>
+        <p
+          className="moderat-bold"
+          style={{fontSize: '1.2rem', color: '#00CF77'}}
+        >
+          8:00 AM - 7:00 PM
+        </p>
         {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
-        </p> */}
-        <div className='mt-6'>
+        </p>*/}
+        <div className="mt-6">
           <AnimatedButton
             text={'View Menu'}
             bgColor={'#00d58d'}

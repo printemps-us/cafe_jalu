@@ -42,8 +42,9 @@ function menu() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const nodesWithLinks =
-    data?.content?.references?.nodes?.filter((node) => node?.link?.value)
+    data?.staticData.content?.references?.nodes?.filter((node) => node?.link?.value)
       ?.length || 0;
+
   const [currentSection, setCurrentSection] = useState(null);
   const roomsHeaderRef = useRef();
   const location = useLocation();
