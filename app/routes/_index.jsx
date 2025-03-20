@@ -4,6 +4,8 @@ import {Suspense, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import Logo from '~/components/Logo';
 import bg from '~/assets/cafejalubackground.png';
+import AnimatedButton from '~/components/AnimatedButton';
+
 /**
  * @type {MetaFunction}
  */
@@ -116,6 +118,21 @@ export default function Homepage() {
         {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
         </p> */}
+        <div className='mt-6'>
+          <AnimatedButton
+            text={'View Menu'}
+            bgColor={'#00d58d'}
+            hoverColor={'#00d58d'}
+            textColor={'black'}
+            border="#00d58d"
+            hoverBorder={'#00d58d'}
+            clickURL={'/menu'}
+            h="42px"
+            w="339px"
+            arrow
+            arrowStart
+          />
+        </div>
       </div>
       <div className="footer-container">
         <div className="above-footer">
