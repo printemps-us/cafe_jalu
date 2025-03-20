@@ -41,8 +41,9 @@ function menu() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const isBigger =
-    width > data.staticData.content?.references.nodes.length * 140;
+  const nodesWithLinks =
+    data?.content?.references?.nodes?.filter((node) => node?.link?.value)
+      ?.length || 0;
   const [currentSection, setCurrentSection] = useState(null);
   const roomsHeaderRef = useRef();
   const location = useLocation();
@@ -146,9 +147,10 @@ function menu() {
       </div>
       <div
         ref={roomsHeaderRef}
-        className={`flex hide-scrollbar px-8 gap-8 ${
-          isBigger ? 'justify-center' : 'justify-start'
-        } overflow-x-auto sticky top-0 bg-white py-[18px] z-20`}
+        className={`flex hide-scrollbar px-8 gap-8 overflow-x-auto sticky top-0 bg-white py-[18px] z-20`}
+        style={{
+          paddingLeft: `max((100vw - ${nodesWithLinks * 132}px) / 2, 0px)`,
+        }}
       >
         {data.staticData.content?.references.nodes.map((item, index) => (
           <button
