@@ -1,7 +1,7 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense, useState} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image, Money, getSeoMeta} from '@shopify/hydrogen';
 import Logo from '~/components/Logo';
 import bg from '~/assets/cafejalubackground.png';
 import AnimatedButton from '~/components/AnimatedButton';
@@ -9,8 +9,14 @@ import AnimatedButton from '~/components/AnimatedButton';
 /**
  * @type {MetaFunction}
  */
-export const meta = () => {
-  return [{title: 'Cafe Jalu'}];
+export const meta = ({data}) => {
+  // pass your SEO object to getSeoMeta()
+  return getSeoMeta({
+    title: 'Café Jalu - French Coffee and Pastries',
+    description:
+      "To stay or to go - a quick café au lait or indulgent pastry created in the classic French preparation.",
+    // image: data.staticData.seo?.reference.image?.reference?.image.url,
+  });
 };
 
 /**

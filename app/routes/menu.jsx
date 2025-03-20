@@ -1,7 +1,7 @@
 import React, {useRef, useState, useEffect} from 'react';
 import Logo from '~/components/Logo';
 import {data, useLoaderData, defer} from '@remix-run/react';
-import {Image} from '@shopify/hydrogen';
+import {Image, getSeoMeta} from '@shopify/hydrogen';
 import {Link, useLocation} from '@remix-run/react';
 import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
@@ -12,7 +12,15 @@ export async function loader(args) {
 
   return defer({...staticData});
 }
-
+export const meta = ({data}) => {
+  // pass your SEO object to getSeoMeta()
+  return getSeoMeta({
+    title: 'Cafe Jalu - Printemps New York - Menu',
+    description:
+      'Explore the menu at Cafe Jalu by Chef Gregory Gourdet, featuring fresh juices, viennoiserie, and gluten- & dairy-free pastries.',
+    // image: data.staticData.seo?.reference.image?.reference?.image.url,
+  });
+};
 async function loadStaticData({context}) {
   try {
     // Run the query
@@ -42,8 +50,9 @@ function menu() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const nodesWithLinks =
-    data?.staticData.content?.references?.nodes?.filter((node) => node?.link?.value)
-      ?.length || 0;
+    data?.staticData.content?.references?.nodes?.filter(
+      (node) => node?.link?.value,
+    )?.length || 0;
 
   const [currentSection, setCurrentSection] = useState(null);
   const roomsHeaderRef = useRef();
