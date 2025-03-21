@@ -22,8 +22,20 @@ export default async function handleRequest(
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
-    styleSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'],
-    fontSrc: ["'self'", 'https://use.typekit.net', 'https://p.typekit.net'], // Allow fonts
+    styleSrc: [
+      "'self'",
+      'https://use.typekit.net',
+      'https://p.typekit.net',
+      'https://fonts.googleapis.com',
+      'https://fonts.gstatic.com',
+    ],
+    fontSrc: [
+      "'self'",
+      'https://use.typekit.net',
+      'https://p.typekit.net',
+      'https://fonts.googleapis.com',
+      'https://fonts.gstatic.com',
+    ], // Allow fonts
     scriptSrc: [
       "'self'",
       'https://cdn.shopify.com',

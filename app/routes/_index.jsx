@@ -1,14 +1,22 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense, useState} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import {Image, Money, getSeoMeta} from '@shopify/hydrogen';
 import Logo from '~/components/Logo';
 import bg from '~/assets/cafejalubackground.png';
+import AnimatedButton from '~/components/AnimatedButton';
+
 /**
  * @type {MetaFunction}
  */
-export const meta = () => {
-  return [{title: 'Cafe Jalu'}];
+export const meta = ({data}) => {
+  // pass your SEO object to getSeoMeta()
+  return getSeoMeta({
+    title: 'Café Jalu - French Coffee and Pastries',
+    description:
+      "To stay or to go - a quick café au lait or indulgent pastry created in the classic French preparation.",
+    // image: data.staticData.seo?.reference.image?.reference?.image.url,
+  });
 };
 
 /**
@@ -79,10 +87,7 @@ export default function Homepage() {
     setForm({email: ''});
   };
 
-  console.log(state);
-
   const handleSubmit = (e) => {
-    console.log('tirrger');
     exponea.identify(
       {email_id: email.toLowerCase()},
       {
@@ -107,18 +112,39 @@ export default function Homepage() {
   return (
     <div className="background" style={{backgroundImage: `url(${bg})`}}>
       <div className="main-area">
-        <div className="responsive-logo">
+        <div className="responsive-logo" style={{marginBottom: 12}}>
           <Logo></Logo>
         </div>
         <p
           className="moderat-bold"
-          style={{fontSize: '1rem', color: '#00CF77'}}
+          style={{fontSize: '1.2rem', color: '#00CF77'}}
         >
-          Opening Soon
+          HOURS:
+        </p>
+        <p
+          className="moderat-bold"
+          style={{fontSize: '1.2rem', color: '#00CF77'}}
+        >
+          8:00 AM - 7:00 PM
         </p>
         {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
-        </p> */}
+        </p>*/}
+        <div className="mt-6">
+          <AnimatedButton
+            text={'View Menu'}
+            bgColor={'#00d58d'}
+            hoverColor={'#00d58d'}
+            textColor={'black'}
+            border="#00d58d"
+            hoverBorder={'#00d58d'}
+            clickURL={'/menu'}
+            h="42px"
+            w="339px"
+            arrow
+            arrowStart
+          />
+        </div>
       </div>
       <div className="footer-container">
         <div className="above-footer">
