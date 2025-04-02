@@ -245,7 +245,7 @@ const MENU_QUERY = `query StaticPageContent {
     nodes {
       handle
       content: field(key: "content") {
-        references(first: 10) {
+        references(first: 30) {
           nodes {
             ... on Metaobject {
               title: field(key: "title") {
@@ -265,7 +265,7 @@ const MENU_QUERY = `query StaticPageContent {
                       }
                     }
               menu_items: field(key: "menu_items") {
-                references(first: 10) {
+                references(first: 50) {
                   nodes {
                     ... on Metaobject {
                       title: field(key: "title") {
