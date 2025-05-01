@@ -140,7 +140,7 @@ export default function Homepage() {
             hoverBorder={'#00d58d'}
             clickURL={'/menu'}
             h="42px"
-            w="339px"
+            w="90%"
             arrow
             arrowStart
           />

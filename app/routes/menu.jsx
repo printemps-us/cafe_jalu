@@ -202,7 +202,7 @@ function menu() {
             id={item.link?.value}
             className="section flex flex-col items-center gap-8"
           >
-            <h3 className="h3-desktop pb-3 moderat-bold">
+            <h3 className="h3-desktop pb-3 moderat-bold text-center">
               {item.title?.value}
             </h3>
             {item.menu_items?.references.nodes.map((item, index) => (
@@ -210,7 +210,7 @@ function menu() {
                 key={`${item.title?.value}_item_${index}`}
                 className="gap-3 flex flex-col items-center"
               >
-                <p className="p-standard-bold-desktop uppercase urbanist">
+                <p className="p-standard-bold-desktop uppercase urbanist text-center">
                   {item.title?.value}
                 </p>
                 {item.ingredients && (
@@ -219,7 +219,7 @@ function menu() {
                       (ingredient, index, array) => (
                         <p
                           key={`${ingredient}_item_${index}`}
-                          className="p-small-regular-desktop text-black-2"
+                          className="p-small-regular-desktop text-black-2 text-center"
                         >
                           {ingredient}
                           {index < array.length - 1 && '・'}
@@ -228,7 +228,9 @@ function menu() {
                     )}
                   </div>
                 )}
-                <p className="p-small-bold-desktop">${item.price?.value}</p>
+                <p className="p-small-bold-desktop text-center">
+                  ${item.price?.value}
+                </p>
               </div>
             ))}
           </div>
