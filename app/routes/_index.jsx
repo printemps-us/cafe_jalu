@@ -56,7 +56,7 @@ export default function Homepage() {
         {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
         </p>*/}
-        <div className="mt-6">
+        <div className="mt-6 h-auto w-full flex max-[835px]:flex-col gap-3 justify-center items-center">
           <AnimatedButton
             text={'View Menu'}
             bgColor={'#00d58d'}
@@ -66,7 +66,7 @@ export default function Homepage() {
             hoverBorder={'#00d58d'}
             clickURL={'/menu'}
             h="42px"
-            w="339px"
+            w="90%"
             arrow
             arrowStart
           />

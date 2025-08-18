@@ -79,6 +79,7 @@ function AnimatedButton({
       style={{
         height: h,
         width: w,
+        maxWidth: '339px',
         borderRadius,
         cursor: disabled ? 'auto' : 'pointer',
         ...(noMaxWidth ? {} : {maxWidth: '339px'}),
