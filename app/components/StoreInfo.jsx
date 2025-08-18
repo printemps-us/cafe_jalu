@@ -2,6 +2,7 @@ import React from 'react';
 import {Image} from '@shopify/hydrogen';
 import {FormattedText} from './functions/formatText';
 function StoreInfo({data, bgColor = 'white'}) {
+  const isEmail = (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
   return (
     <div className="px-6 py-8 flex justify-center">
       {data.references.nodes.map((item, index) => (
@@ -28,7 +29,7 @@ function StoreInfo({data, bgColor = 'white'}) {
           <span className="p-standard-bold-desktop uppercase">
             {item.header.value}
           </span>
-          {item.contact.value.includes('@') ? (
+          {isEmail(item.contact?.value) ? (
             <a
               className="text-black-op70 p-small-regular-desktop underline-important"
               href={`mailto:${item.contact.value}`}
