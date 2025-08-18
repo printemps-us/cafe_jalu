@@ -47,7 +47,7 @@ export default async function handleRequest(
       'https://widgets.resy.com', // Add this line to allow the Resy script
       // Include other allowed domains for script loading
     ],
-    connectSrc: ['https://eu2-api.eng.bloomreach.com', 'https://www.googletagmanager.com', 'https://www.google-analytics.com'],
+    connectSrc: ['https://eu2-api.eng.bloomreach.com', 'https://www.googletagmanager.com', 'https://www.google-analytics.com', 'https://formspree.io/',],
   });
 
   const body = await renderToReadableStream(

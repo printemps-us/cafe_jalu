@@ -1,14 +1,15 @@
 import {Await, Link} from '@remix-run/react';
-import {Suspense, useId} from 'react';
+import {Suspense} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
-import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import HeaderComponent from './Header';
+import {useRouteLoaderData} from '@remix-run/react';
 
 /**
  * @param {PageLayoutProps}
@@ -18,9 +19,13 @@ export function PageLayout({
   children = null,
   footer,
   header,
+  pathname,
   isLoggedIn,
   publicStoreDomain,
 }) {
+  // Get the root data which includes isMobile
+  const rootData = useRouteLoaderData('root');
+  const isMobile = rootData?.isMobile;
   return (
     <Aside.Provider>
       {/* <CartAside cart={cart} />
@@ -34,6 +39,11 @@ export function PageLayout({
           publicStoreDomain={publicStoreDomain}
         />
       )} */}
+      <HeaderComponent
+        data={header.metaobjects.nodes[0]}
+        isMobile={isMobile}
+        pathname={pathname}
+      ></HeaderComponent>
       <main>{children}</main>
       {/* <Footer
         footer={footer}
@@ -62,7 +72,6 @@ function CartAside({cart}) {
 }
 
 function SearchAside() {
-  const queriesDatalistId = useId();
   return (
     <Aside type="search" heading="SEARCH">
       <div className="predictive-search">
@@ -77,7 +86,6 @@ function SearchAside() {
                 placeholder="Search"
                 ref={inputRef}
                 type="search"
-                list={queriesDatalistId}
               />
               &nbsp;
               <button onClick={goToSearch}>Search</button>
@@ -86,7 +94,7 @@ function SearchAside() {
         </SearchFormPredictive>
 
         <SearchResultsPredictive>
-          {({items, total, term, state, closeSearch}) => {
+          {({items, total, term, state, inputRef, closeSearch}) => {
             const {articles, collections, pages, products, queries} = items;
 
             if (state === 'loading' && term.current) {
@@ -101,7 +109,7 @@ function SearchAside() {
               <>
                 <SearchResultsPredictive.Queries
                   queries={queries}
-                  queriesDatalistId={queriesDatalistId}
+                  inputRef={inputRef}
                 />
                 <SearchResultsPredictive.Products
                   products={products}

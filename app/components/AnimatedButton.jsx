@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Arrow from '~/assets/Arrow-right.svg';
-import Arrow2 from '~/assets/arrow2.svg';
 import {useNavigate} from '@remix-run/react';
 import gsap from 'gsap';
 import ButtonLoadingAnimation from './ButtonLoadingAnimation';
@@ -23,6 +22,7 @@ function AnimatedButton({
   textPos = 'center',
   pen = false,
   loading = false,
+  noMaxWidth = false,
 }) {
   const navigate = useNavigate();
   const [isHover, setHover] = useState(false);
@@ -51,8 +51,13 @@ function AnimatedButton({
   }, [isHover]);
   const handleClick = (e) => {
     if (clickURL) {
-      e.preventDefault();
-      navigate(clickURL);
+      if (clickURL.startsWith('/')) {
+        // Internal navigation
+        navigate(clickURL);
+      } else {
+        // External navigation
+        window.open(clickURL, '_blank');
+      }
     }
     if (onClick) {
       e.preventDefault();
@@ -76,6 +81,7 @@ function AnimatedButton({
         width: w,
         borderRadius,
         cursor: disabled ? 'auto' : 'pointer',
+        ...(noMaxWidth ? {} : {maxWidth: '339px'}),
       }}
     >
       <div className="relative h-full">
@@ -90,7 +96,7 @@ function AnimatedButton({
         <div className="absolute top-0 right-4 z-30 overflow-hidden h-full flex items-center w-6">
           {arrow && (
             <img
-              src={Arrow2}
+              src={Arrow}
               ref={ArrowHiddenRef}
               alt="Arrow"
               height={10}
@@ -167,6 +173,8 @@ function AnimatedButton({
                   color:
                     (hoverColor === 'black') | (hoverColor === '#000000')
                       ? 'white'
+                      : textColor
+                      ? textColor
                       : 'black',
                 }}
               >

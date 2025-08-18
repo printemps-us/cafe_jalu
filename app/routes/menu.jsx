@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
 import Logo from '~/components/Logo';
-import {data, useLoaderData, defer} from '@remix-run/react';
+import {data, useLoaderData, defer, useNavigate} from '@remix-run/react';
 import {Image, getSeoMeta} from '@shopify/hydrogen';
 import {Link, useLocation} from '@remix-run/react';
 import gsap from 'gsap';
@@ -13,12 +13,10 @@ export async function loader(args) {
   return defer({...staticData});
 }
 export const meta = ({data}) => {
-  // pass your SEO object to getSeoMeta()
   return getSeoMeta({
-    title: 'Cafe Jalu - Printemps New York - Menu',
-    description:
-      'Explore the menu at Cafe Jalu by Chef Gregory Gourdet, featuring fresh juices, viennoiserie, and gluten- & dairy-free pastries.',
-    // image: data.staticData.seo?.reference.image?.reference?.image.url,
+    title: data?.staticData?.seo?.reference?.title?.value,
+    description: data?.staticData?.seo?.reference?.description?.value,
+    image: data?.staticData?.seo?.reference?.image?.reference?.image?.url,
   });
 };
 async function loadStaticData({context}) {
@@ -39,6 +37,9 @@ async function loadStaticData({context}) {
 
 function menu() {
   const data = useLoaderData();
+  const navigate = useNavigate();
+  const isInitialRender = useRef(true);
+
   const [width, setWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0,
   );
@@ -49,11 +50,8 @@ function menu() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const nodesWithLinks =
-    data?.staticData.content?.references?.nodes?.filter(
-      (node) => node?.link?.value,
-    )?.length || 0;
-
+  const isBigger =
+    width > data.staticData.content?.references.nodes.length * 140;
   const [currentSection, setCurrentSection] = useState(null);
   const roomsHeaderRef = useRef();
   const location = useLocation();
@@ -68,83 +66,105 @@ function menu() {
       console.error('Resy widget is not available.');
     }
   };
-  const handleLinkClick = (e, linkValue) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    const target = document.querySelector(linkValue);
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop - 220, // Adjust offset as needed
-        behavior: 'smooth',
-      });
-    }
-  };
-  useEffect(() => {
-    if (location.hash) {
-      const target = document.querySelector(location.hash);
-      if (target) {
-        window.scrollTo({
-          top: target.offsetTop - 220, // Offset by 200px
-          behavior: 'smooth',
-        });
+
+  function organizeMenuItems(data) {
+    const result = [];
+    let currentArray = [];
+
+    data.forEach((item) => {
+      if (item.master_header) {
+        // Start a new array for the master header
+        currentArray = [item];
+        result.push(currentArray);
+      } else if (!item.link) {
+        // Continue adding items under the current master header
+        currentArray.push(item);
+      } else {
+        // If there's a link, start a new array
+        currentArray = [item];
+        result.push(currentArray);
       }
-    }
-  }, [location]);
+    });
+
+    return result;
+  }
+  const organizedMenuItems = organizeMenuItems(
+    data.staticData.content.references.nodes,
+  );
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    navigate(location.pathname, {replace: true});
+    // Wait for content to be ready
+    const initScrollTriggers = () => {
+      // Kill any existing ScrollTriggers first
+      ScrollTrigger.getAll().forEach((st) => st.kill());
 
-    gsap.utils.toArray('.room').forEach((room) => {
-      gsap.fromTo(
-        room,
-        {width: '100px', height: '100px'},
-        {
-          width: '75px',
-          height: '75px',
-          scrollTrigger: {
-            id: 'header',
-            trigger: roomsHeaderRef.current,
-            start: '15% 20%',
-            end: '45% 20%',
-            toggleActions: 'play none none reverse',
-            scrub: true,
-            onEnterBack: () => setCurrentSection(null),
-          },
-        },
-      );
-    });
-    gsap.utils.toArray('.section').forEach((section) => {
-      gsap.to(section, {
-        scrollTrigger: {
-          id: section.id + '_trigger',
+      // Section tracking
+      gsap.utils.toArray('.section').forEach((section) => {
+        const sectionId = section.id;
+        // Find the corresponding node in data
+        const node = data?.staticData.content?.references?.nodes.find(
+          (n) => n?.link?.value === sectionId,
+        );
+        if (!node) {
+          return;
+        }
+
+        ScrollTrigger.create({
           trigger: section,
-          start: '-75px 25%',
+          start: '-100px 25%',
           end: '100% 25%',
           toggleActions: 'play none none reverse',
-          onEnter: () => setCurrentSection(section.id), // Set current section when entering
+          onEnter: () => setCurrentSection(section.id),
           onEnterBack: () => setCurrentSection(section.id),
-        },
+          immediateRender: false,
+        });
       });
-    });
-    gsap.fromTo(
-      roomsHeaderRef.current,
-      {borderBottom: '1px solid white'},
-      {
-        borderBottom: '1px solid #E7E7E7',
-        scrollTrigger: {
-          trigger: roomsHeaderRef.current,
-          start: '15% 20%',
-          end: '15% 20%',
-          toggleActions: 'play none none reverse',
-        },
-      },
-    );
-    window.onload = () => {
+
+      // Force a refresh after initialization
       ScrollTrigger.refresh();
     };
+
+    // Delay initialization and add a second refresh
+    const timer = setTimeout(() => {
+      initScrollTriggers();
+      setTimeout(() => ScrollTrigger.refresh(), 100);
+    }, 500);
+
     return () => {
-      // Clean up on component unmount
+      clearTimeout(timer);
       ScrollTrigger.killAll();
     };
   }, []);
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false; // Skip first render
+      return;
+    }
+
+    if (location.hash) {
+      const scrollToTarget = () => {
+        const target = document.querySelector(location.hash);
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 300,
+            behavior: 'smooth',
+          });
+        }
+      };
+
+      const timeout = setTimeout(() => {
+        requestAnimationFrame(scrollToTarget);
+      }, 0);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [location]);
+  // Empty dependency array since we want this to run once on mount
+  const nodesWithLinks =
+    data?.staticData.content?.references?.nodes?.filter(
+      (node) => node?.link?.value,
+    )?.length || 0;
   return (
     <SmoothScroll>
       <div
@@ -157,7 +177,7 @@ function menu() {
       </div>
       <div
         ref={roomsHeaderRef}
-        className={`flex hide-scrollbar px-8 gap-8 overflow-x-auto sticky top-0 bg-white py-[18px] z-20`}
+        className={`flex hide-scrollbar px-8 gap-8 overflow-x-auto sticky top-[100px] bg-white py-[18px] z-20`}
         style={{
           paddingLeft: `max((100vw - ${nodesWithLinks * 132}px) / 2, 0px)`,
         }}

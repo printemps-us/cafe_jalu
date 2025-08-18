@@ -1,237 +1,162 @@
-import {Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from '@remix-run/react';
-import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
-import {useAside} from '~/components/Aside';
+import React, {useState, useRef, useEffect} from 'react';
+import {Image} from '@shopify/hydrogen';
+import RestaurantModal from './RestaurantModal';
+import {Link} from '@remix-run/react';
+import {data, useLoaderData, defer} from '@remix-run/react';
+import AnimatedButton from './AnimatedButton';
+import HeaderDropDown from './HeaderDropDown';
+import Carrot from '~/assets/Carrot';
+import {useLocation} from '@remix-run/react';
+import Homepage from '~/routes/_index';
+import useIsMobile from './functions/isMobile';
+import HeaderMobile from './mobile/HeaderMobile';
+import Logo from '~/components/Logo';
 
-/**
- * @param {HeaderProps}
- */
-export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
-  const {shop, menu} = header;
-  return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-    </header>
-  );
-}
+function HeaderComponent({data, isMobile, pathname}) {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const [showDetails, setShowDetails] = useState(() => {
+    // On homepage, show only if already scrolled
+    if (typeof window !== 'undefined' && isHomePage) {
+      return window.scrollY > 200;
+    }
+    // On any other page, always show
+    return true;
+  });
 
-/**
- * @param {{
- *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
- *   viewport: Viewport;
- *   publicStoreDomain: HeaderProps['publicStoreDomain'];
- * }}
- */
-export function HeaderMenu({
-  menu,
-  primaryDomainUrl,
-  viewport,
-  publicStoreDomain,
-}) {
-  const className = `header-menu-${viewport}`;
-  const {close} = useAside();
+  const hoverRef = useRef(null);
+  const dropdownRef = useRef(null);
+  let leaveTimeout = null;
 
-  return (
-    <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={close}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-        if (!item.url) return null;
+  // Use the server-side mobile detection
+  const isMobileActive = useIsMobile(isMobile);
 
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
-          <NavLink
-            className="header-menu-item"
-            end
-            key={item.id}
-            onClick={close}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
-      })}
-    </nav>
-  );
-}
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setShowDetails(true);
+      return;
+    }
 
-/**
- * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
- */
-function HeaderCtas({isLoggedIn, cart}) {
-  return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
-    </nav>
-  );
-}
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setShowDetails(scrollTop > 200);
+    };
 
-function HeaderMenuMobileToggle() {
-  const {open} = useAside();
-  return (
-    <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
-    >
-      <h3>☰</h3>
-    </button>
-  );
-}
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
 
-function SearchToggle() {
-  const {open} = useAside();
-  return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
-    </button>
-  );
-}
-
-/**
- * @param {{count: number | null}}
- */
-function CartBadge({count}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
-
-  return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        });
-      }}
-    >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
-  );
-}
-
-/**
- * @param {Pick<HeaderProps, 'cart'>}
- */
-function CartToggle({cart}) {
-  return (
-    <Suspense fallback={<CartBadge count={null} />}>
-      <Await resolve={cart}>
-        <CartBanner />
-      </Await>
-    </Suspense>
-  );
-}
-
-function CartBanner() {
-  const originalCart = useAsyncValue();
-  const cart = useOptimisticCart(originalCart);
-  return <CartBadge count={cart?.totalQuantity ?? 0} />;
-}
-
-const FALLBACK_HEADER_MENU = {
-  id: 'gid://shopify/Menu/199655587896',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461609500728',
-      resourceId: null,
-      tags: [],
-      title: 'Collections',
-      type: 'HTTP',
-      url: '/collections',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609533496',
-      resourceId: null,
-      tags: [],
-      title: 'Blog',
-      type: 'HTTP',
-      url: '/blogs/journal',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609566264',
-      resourceId: null,
-      tags: [],
-      title: 'Policies',
-      type: 'HTTP',
-      url: '/policies',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
-      items: [],
-    },
-  ],
-};
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({isActive, isPending}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
+  const handleMouseLeave = (e) => {
+    if (e.relatedTarget instanceof Window) {
+      setIsHover(false);
+      // Add your hover close logic here
+    } else if (
+      e.relatedTarget &&
+      dropdownRef.current &&
+      dropdownRef.current?.contains(e.relatedTarget) &&
+      !hoverRef.current.contains(e.relatedTarget)
+    ) {
+      // If the mouse is moving into the specific div, do nothing.
+      return;
+    }
+    leaveTimeout = setTimeout(() => {
+      setIsHover(false);
+    }, 200);
   };
+
+  const handleMouseEnter = () => {
+    clearTimeout(leaveTimeout);
+    setIsHover(true);
+  };
+
+  // If mobile, render the mobile header
+  if (isMobileActive) {
+    return (
+      <>
+        <RestaurantModal
+          setOpenModal={setModalOpen}
+          openModal={modalOpen}
+          venue_id={'87094'}
+          link={'https://resy.com/cities/new-york-ny/venues/maison-passerelle'}
+          api_key={'bJMvYfY5EA6goX7ncWUkx9PMjXdA5v66'}
+        />
+        <HeaderMobile data={data} pathname={pathname} />
+      </>
+    );
+  }
+  // Desktop header
+  return (
+    <>
+      <RestaurantModal
+        setOpenModal={setModalOpen}
+        openModal={modalOpen}
+        venue_id={'87094'}
+        link={'https://resy.com/cities/new-york-ny/venues/maison-passerelle'}
+        api_key={'bJMvYfY5EA6goX7ncWUkx9PMjXdA5v66'}
+      ></RestaurantModal>
+      <div className="w-full bg-[#c5e4e4] flex justify-between sticky top-0 h-[100px] z-100">
+        <div
+          className={`p-4 transition-all duration-500 ease-in-out flex flex-col justify-center  ${
+            showDetails ? 'opacity-100 h-full' : 'opacity-0 max-h-0'
+          }`}
+        >
+          <Link to="/">
+            <div className='w-[150px]'>
+              <Logo />
+            </div>
+          </Link>
+        </div>
+        <div className="flex gap-12 items-center px-4">
+          <div
+            className="text-[#000] moderat-bold cursor-pointer h-full flex items-center gap-1"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            ref={hoverRef}
+          >
+            <span>ABOUT</span>
+            <Carrot rotated={isHover} />
+          </div>
+          <Link
+            to="/location"
+            className="text-[#000] moderat-bold cursor-pointer"
+          >
+            LOCATION
+          </Link>
+          <Link to="/menu" className="text-[#000] moderat-bold cursor-pointer">
+            MENU
+          </Link>
+          <Link
+            to="/contact-us"
+            className="text-[#000] moderat-bold cursor-pointer"
+          >
+            CONTACT US
+          </Link>
+          <AnimatedButton
+            text="RESERVE A TABLE"
+            clickURL="https://resy.com/cities/new-york-ny/venues/maison-passerelle"
+            onClick={() => setModalOpen(true)}
+            bgColor="#00d58d"
+            textColor="#000"
+            hoverColor="#00d58d"
+            border="#00d58d"
+            w="180px"
+            h="40px"
+          />
+        </div>
+        <HeaderDropDown
+          isHover={isHover}
+          handleMouseLeave={handleMouseLeave}
+          dropdownRef={dropdownRef}
+          hoverRef={hoverRef}
+          hoverValue="menu"
+          headerData={data}
+          handleMouseEnter={handleMouseEnter}
+        />
+      </div>
+    </>
+  );
 }
 
-/** @typedef {'desktop' | 'mobile'} Viewport */
-/**
- * @typedef {Object} HeaderProps
- * @property {HeaderQuery} header
- * @property {Promise<CartApiQueryFragment|null>} cart
- * @property {Promise<boolean>} isLoggedIn
- * @property {string} publicStoreDomain
- */
-
-/** @typedef {import('@shopify/hydrogen').CartViewPayload} CartViewPayload */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
+export default HeaderComponent;

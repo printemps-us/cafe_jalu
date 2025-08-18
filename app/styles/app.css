@@ -27,7 +27,6 @@ img {
 }
 
 .background {
-  background-color: #1E783D;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -58,7 +57,7 @@ img {
   justify-content: center;
   align-items: center;
   gap: 14px;
-  margin-bottom: 12px;
+ padding: 12px;
 
 }
 
