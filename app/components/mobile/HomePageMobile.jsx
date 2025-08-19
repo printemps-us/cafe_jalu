@@ -4,7 +4,7 @@ import AnimatedButton from '../AnimatedButton';
 import RestaurantModal from '../RestaurantModal';
 import RoomCard from '../RoomCard';
 import FooterMobile from './FooterMobile';
-
+import Logo from '../Logo';
 function HomePageMobile({staticData}) {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,70 +19,45 @@ function HomePageMobile({staticData}) {
       />
 
       {/* Hero Section */}
-      <div className="bg-[#AF4145] flex flex-col items-center gap-2 py-16 px-4">
-        <Image
-          className="logo"
-          src={
-            'https://cdn.shopify.com/s/files/1/0581/1011/5943/files/MaisonPasser.svg?v=1737053887'
-          }
-          width={'300px'}
-          sizes="(min-width: 35em) 60vw, 70vw"
-          alt="Maison Passerelle Logo"
-        />
-        <p
-          className="moderat-bold text-center text-sm"
-          style={{color: '#e8d09b'}}
-        >
-          ONE WALL STREET, NEW YORK, NEW YORK
-        </p>
-        <div>
-          <p
-            className="moderat-bold text-center text-sm"
-            style={{color: '#e8d09b'}}
-          >
-            SUNDAY - MONDAY
-          </p>
-          <p
-            className="moderat-bold text-center text-sm"
-            style={{color: '#e8d09b'}}
-          >
-            5:00PM - 9:00PM
-          </p>
+      <div className="bg-[#c5e4e4] flex flex-col items-center gap-2 py-16 px-4">
+        <div className='w-[80vw] mb-10'>
+          <Logo></Logo>
         </div>
-        <div>
+
+        <div className="text-center">
           <p
-            className="moderat-bold text-center text-sm"
-            style={{color: '#e8d09b'}}
+            className="moderat-bold"
+            style={{fontSize: '1.2rem', color: '#00CF77'}}
           >
-            TUESDAY - SATURDAY
+            HOURS:
           </p>
           <p
-            className="moderat-bold text-center text-sm"
-            style={{color: '#e8d09b'}}
+            className="moderat-bold"
+            style={{fontSize: '1.2rem', color: '#00CF77'}}
           >
-            5:00PM - 10:00PM
+            8:00 AM - 7:00 PM
           </p>
         </div>
 
         <div className="mt-12 w-full flex flex-col gap-3 justify-center items-center">
           <AnimatedButton
             text={'Book with Resy'}
-            bgColor={'#e8d09b'}
-            hoverColor={'#e8d09b'}
+            bgColor={'#00d58d'}
+            hoverColor={'#00d58d'}
             textColor={'black'}
-            border="#e8d09b"
-            hoverBorder={'#e8d09b'}
+            border="#00d58d"
+            hoverBorder={'#00d58d'}
             onClick={() => setModalOpen(true)}
             h="48px"
             w="100%"
           />
           <AnimatedButton
             text={'View Menu'}
-            bgColor={'#e8d09b'}
-            hoverColor={'#e8d09b'}
+            bgColor={'#00d58d'}
+            hoverColor={'#00d58d'}
             textColor={'black'}
-            border="#e8d09b"
-            hoverBorder={'#e8d09b'}
+            border="#00d58d"
+            hoverBorder={'#00d58d'}
             clickURL={'/menu'}
             h="48px"
             w="100%"

@@ -12,7 +12,7 @@ function RoomCardMobile({header, sub, image, button_text, link}) {
         style={{textDecoration: 'none'}} 
       >
         {/* Image */}
-        <div className="w-full h-[200px] relative overflow-hidden">
+        <div className="w-full h-[180px] relative overflow-hidden">
           <Image
             data={image}
             className="w-full h-full object-cover"

@@ -15,14 +15,14 @@ function FooterMobile({instagram = false}) {
       {email_id: email.toLowerCase()},
       {
         email: email.toLowerCase(),
-        data_source: 'maison passerelle',
+        data_source: 'Cafe Jalu',
       },
     );
     exponea.track('consent', {
       category: 'mp_email',
       valid_until: 'unlimited',
       action: 'accept',
-      data_source: 'maison passerelle',
+      data_source: 'Cafe Jalu',
     });
     setState({
       isWaiting: false,
@@ -38,7 +38,7 @@ function FooterMobile({instagram = false}) {
   return (
     <div className="w-full">
       {/* Above Footer Section */}
-      <div className="bg-[#AF4145] flex flex-col items-center gap-4 py-8 px-4">
+      <div className="bg-[#c5e4e4] flex flex-col items-center gap-4 py-8 px-4">
         {instagram && (
           <a
             href="https://urlgeni.us/instagram/maisonpasserellenyc"
@@ -53,14 +53,14 @@ function FooterMobile({instagram = false}) {
             />
           </a>
         )}
-        <p className="moderat-bold text-center text-sm leading-relaxed" style={{color: '#e8d09b'}}>
-          Maison Passerelle is part of Printemps new york, For more information
+        <p className="moderat-bold text-center text-sm leading-relaxed" style={{color: '#000'}}>
+          Cafe Jalu is part of Printemps new york, For more information
           sign up for our newsletter
         </p>
       </div>
 
       {/* Footer Newsletter Section */}
-      <div className="bg-[#e8d09b] flex flex-col items-center gap-4 py-6 px-4">
+      <div className="bg-[#00d58d] flex flex-col items-center gap-4 py-6 px-4">
         <p className="moderat-bold text-center text-sm text-black">
           {state.isSubmitted ? 'Merci!' : 'Sign up for our newsletter'}
         </p>
@@ -81,7 +81,7 @@ function FooterMobile({instagram = false}) {
             <button
               className={`w-full py-3 px-6 rounded-md moderat-bold text-sm ${
                 validEmail.test(email) 
-                  ? 'bg-[#AF4145] text-white' 
+                  ? 'bg-[#000] text-white' 
                   : 'bg-gray-300 text-gray-500'
               }`}
               onClick={handleSubmit}

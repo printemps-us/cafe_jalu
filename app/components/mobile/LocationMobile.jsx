@@ -17,7 +17,7 @@ function LocationMobile({staticData}) {
       />
 
       {/* Store Info Section */}
-      <StoreInfoMobile data={staticData.contact_options} bgColor={'#AF4145'} />
+      <StoreInfoMobile data={staticData.contact_options} bgColor={'#c5e4e4'} />
 
       {/* Location Info Section */}
       <ImageSectionMobile

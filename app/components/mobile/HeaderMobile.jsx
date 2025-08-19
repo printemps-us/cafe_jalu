@@ -8,7 +8,7 @@ import Plus from '~/assets/Plus.svg';
 import Minus from '~/assets/Minus.svg';
 import CloseIcon from '~/assets/CloseIcon.svg';
 import gsap from 'gsap';
-
+import Logo from '../Logo';
 function HeaderMobile({data, pathname}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -124,27 +124,16 @@ function HeaderMobile({data, pathname}) {
       />
 
       {/* Mobile Header */}
-      <div className="w-full bg-[#AF4145] flex justify-between items-center sticky top-0 h-[100px] z-50 px-4 lg:hidden">
+      <div className="w-full bg-[#c5e4e4] flex justify-between items-center sticky top-0 h-[100px] z-50 px-4 lg:hidden">
         {/* Logo Section */}
         <div
           className={`transition-all duration-500 ease-in-out flex flex-col justify-center ${
             showDetails ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <Link to="/" onClick={handleMenuLinkClick}>
-            <Image
-              src="https://cdn.shopify.com/s/files/1/0581/1011/5943/files/MaisonPasser.svg?v=1737053887"
-              width={200}
-              sizes="(min-width: 40em) 180px, 360px"
-              alt="Maison Passerelle Logo"
-            />
+          <Link className="w-[125px]" to="/" onClick={handleMenuLinkClick}>
+            <Logo />
           </Link>
-
-          <div className="mt-1 ml-1">
-            <p className="moderat-bold text-xs" style={{color: '#e8d09b'}}>
-              ONE WALL STREET, NEW YORK, NEW YORK
-            </p>
-          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -157,9 +146,9 @@ function HeaderMobile({data, pathname}) {
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu-panel"
         >
-          <div className="line w-6 h-0.5 bg-[#e8d09b] mb-1.5 transition-all duration-300"></div>
-          <div className="line w-6 h-0.5 bg-[#e8d09b] mb-1.5 transition-all duration-300"></div>
-          <div className="line w-6 h-0.5 bg-[#e8d09b] transition-all duration-300"></div>
+          <div className="line w-6 h-0.5 bg-[#000] mb-1.5 transition-all duration-300"></div>
+          <div className="line w-6 h-0.5 bg-[#000] mb-1.5 transition-all duration-300"></div>
+          <div className="line w-6 h-0.5 bg-[#000] transition-all duration-300"></div>
         </button>
 
         {/* Mobile Menu Overlay */}
@@ -174,7 +163,7 @@ function HeaderMobile({data, pathname}) {
         <div
           id="mobile-menu-panel"
           ref={menuRef}
-          className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-[#AF4145] z-50`}
+          className={`fixed top-0 right-0 h-full w-[85%] max-w-[350px] bg-[#c5e4e4] z-50`}
           role="dialog"
           style={{
             transform: 'translateX(100%)',
@@ -187,37 +176,18 @@ function HeaderMobile({data, pathname}) {
           onTouchEnd={onTouchEnd}
         >
           {/* Menu Header */}
-          <div className="flex justify-between items-center p-6 border-b border-[#e8d09b] border-opacity-20">
-            <div className="flex flex-col">
-              <Link to="/">
-                <Image
-                  src="https://cdn.shopify.com/s/files/1/0581/1011/5943/files/MaisonPasser.svg?v=1737053887"
-                  width={180}
-                  sizes="180px"
-                  alt="Maison Passerelle Logo"
-                />
+          <div className="flex items-center p-6 border-b border-[#000] border-opacity-20">
+            <div className="flex flex-1 flex-col justify-center items-center">
+              <Link className="w-[125px]" to="/">
+                <Logo></Logo>
               </Link>
-              <p
-                className="moderat-bold text-[10px] mt-1"
-                style={{color: '#e8d09b'}}
-              >
-                ONE WALL STREET, NEW YORK, NEW YORK
-              </p>
             </div>
             <button
               onClick={toggleMenu}
               className="w-8 h-8 flex items-center justify-center touch-manipulation"
               aria-label="Close menu"
             >
-              <img
-                src={CloseIcon}
-                alt="Close"
-                className="w-5 h-5"
-                style={{
-                  filter:
-                    'brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(638%) hue-rotate(7deg) brightness(96%) contrast(92%)',
-                }}
-              />
+              <img src={CloseIcon} alt="Close" className="w-5 h-5" />
             </button>
           </div>
 
@@ -227,10 +197,10 @@ function HeaderMobile({data, pathname}) {
               {/* Location Link */}
 
               {/* About Accordion */}
-              <div className="border-b border-[#e8d09b] border-opacity-20">
+              <div className="border-b border-[#000] border-opacity-20">
                 <button
                   onClick={() => toggleAccordion('about')}
-                  className="w-full flex justify-between items-center text-[#e8d09b] moderat-bold text-lg py-6 touch-manipulation"
+                  className="w-full flex justify-between items-center text-[#000] moderat-bold text-lg py-6 touch-manipulation"
                   aria-expanded={activeAccordion === 'about'}
                 >
                   <span>ABOUT</span>
@@ -238,10 +208,7 @@ function HeaderMobile({data, pathname}) {
                     src={activeAccordion === 'about' ? Minus : Plus}
                     alt={activeAccordion === 'about' ? 'Collapse' : 'Expand'}
                     className="w-4 h-4"
-                    style={{
-                      filter:
-                        'brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(638%) hue-rotate(7deg) brightness(96%) contrast(92%)',
-                    }}
+                    style={{filter: 'brightness(0) saturate(100%)'}} // makes it pure black
                   />
                 </button>
 
@@ -251,7 +218,7 @@ function HeaderMobile({data, pathname}) {
                       <Link
                         key={`${item?.text?.value}_mobile`}
                         to={item?.url?.value}
-                        className="block text-[#e8d09b] text-opacity-80 text-base pl-4 py-3 hover:text-opacity-100 transition-opacity touch-manipulation"
+                        className="moderat-bold block text-[#000] text-opacity-80 text-base pl-4 py-3 hover:text-opacity-100 transition-opacity touch-manipulation"
                         onClick={handleMenuLinkClick}
                       >
                         {item?.text?.value}
@@ -262,7 +229,7 @@ function HeaderMobile({data, pathname}) {
               </div>
               <Link
                 to="/location"
-                className="block text-[#e8d09b] moderat-bold text-lg py-6 border-b border-[#e8d09b] border-opacity-20 touch-manipulation"
+                className="block text-[#000] moderat-bold text-lg py-6 border-b border-[#000] border-opacity-20 touch-manipulation"
                 onClick={handleMenuLinkClick}
               >
                 LOCATION
@@ -270,14 +237,14 @@ function HeaderMobile({data, pathname}) {
               {/* Menu Link */}
               <Link
                 to="/menu"
-                className="block border-b border-[#e8d09b] border-opacity-20 text-[#e8d09b] moderat-bold text-lg py-6 mb-1 border-opacity-20 touch-manipulation"
+                className="block border-b border-[#000] border-opacity-20 text-[#000] moderat-bold text-lg py-6 mb-1 border-opacity-20 touch-manipulation"
                 onClick={handleMenuLinkClick}
               >
                 MENU
               </Link>
               <Link
                 to="/contact-us"
-                className="block text-[#e8d09b] moderat-bold text-lg py-6 mb-1 border-opacity-20 touch-manipulation"
+                className="block text-[#000] moderat-bold text-lg py-6 mb-1 border-opacity-20 touch-manipulation"
                 onClick={handleMenuLinkClick}
               >
                 CONTACT US
@@ -285,14 +252,14 @@ function HeaderMobile({data, pathname}) {
             </div>
 
             {/* Reservation Button */}
-            <div className="p-6 border-t border-[#e8d09b] border-opacity-20">
+            <div className="p-6 border-t border-[#000] border-opacity-20">
               <AnimatedButton
                 text={'Reservations'}
-                bgColor={'#e8d09b'}
-                hoverColor={'#e8d09b'}
+                bgColor={'#00d58d'}
+                hoverColor={'#00d58d'}
                 textColor={'black'}
-                border="#e8d09b"
-                hoverBorder={'#e8d09b'}
+                border="#00d58d"
+                hoverBorder={'#00d58d'}
                 onClick={() => {
                   setModalOpen(true);
                   handleMenuLinkClick();

@@ -59,7 +59,7 @@ function About() {
         ></Image>
       </div>
       <div
-        className="flex px-6 py-[60px] gap-12 rounded-b-xl bg-white z-20 relative rounded-t-xl mt-[-20px]"
+        className="flex px-6 py-[60px] gap-12 rounded-b-xl bg-white z-20 relative rounded-t-xl mt-[-20px] h-[500px]"
         id="printemp-ny"
       >
         <div className="flex-1 flex flex-col gap-8 pr-6">
@@ -134,7 +134,7 @@ function About() {
         />
       </div>
       <QuoteBlock small data={staticData.chef_quote.reference}></QuoteBlock>
-      <div className='h-12'></div>
+      {/* <div className='h-12'></div> */}
       <FooterComponent></FooterComponent>
     </div>
   );

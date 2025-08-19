@@ -13,7 +13,7 @@ function ImageSectionMobile({
   image,
 }) {
   return (
-    <div className="bg-white-2 flex flex-col">
+    <div className="bg-white-2 pb-6 flex flex-col">
       <div
         className="h-[300px] w-full"
         style={{

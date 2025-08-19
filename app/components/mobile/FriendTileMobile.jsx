@@ -11,7 +11,7 @@ function FriendTileMobile({header, sub, content_header, content_sub}) {
     <div className="w-full">
       <button
         onClick={toggleExpanded}
-        className={`w-full rounded-xl bg-[#AF4145] p-4 flex flex-col items-start transition-all duration-300 ${
+        className={`w-full rounded-xl bg-[#c5e4e4] p-4 flex flex-col items-start transition-all duration-300 ${
           isExpanded ? 'h-auto' : 'h-auto'
         }`}
       >

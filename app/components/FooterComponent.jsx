@@ -14,14 +14,14 @@ function FooterComponent({instagram = false}) {
       {email_id: email.toLowerCase()},
       {
         email: email.toLowerCase(),
-        data_source: 'maison passerelle',
+        data_source: 'Cafe Jalu',
       },
     );
     exponea.track('consent', {
       category: 'mp_email',
       valid_until: 'unlimited',
       action: 'accept',
-      data_source: 'maison passerelle',
+      data_source: 'Cafe Jalu',
     });
     setState({
       isWaiting: false,
@@ -49,7 +49,7 @@ function FooterComponent({instagram = false}) {
           </a>
         )}
         <p className="moderat-bold sign-up-text" style={{color: '#000'}}>
-          Maison Passerelle is part of Printemps new york, For more information
+          Cafe Jalu is part of Printemps new york, For more information
           sign up for our newsletter
         </p>
       </div>

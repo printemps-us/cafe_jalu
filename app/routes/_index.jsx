@@ -72,7 +72,7 @@ export default function Homepage() {
           />
         </div>
       </div>
-      <div className="w-full flex flex-col items-center justify-center h-[200px] text-center my-6">
+      <div className="w-full flex flex-col items-center justify-center py-12 text-center my-6">
         <p className="w-[450px] p-standard-medium-desktop text-black-2">
           {staticData.about_sub.value}
         </p>
@@ -101,7 +101,7 @@ export default function Homepage() {
             backgroundImage: `url(${staticData.find_us_image.reference.image.url})`,
           }}
         ></div>
-        <div className="flex-1 flex-col flex justify-center items-center gap-6 text-center">
+        <div className="flex-1 flex-col flex justify-center items-center gap-6 text-center py-8">
           <h2 className="h2-desktop w-[220px]">
             {staticData.find_us_title.value}
           </h2>
@@ -119,7 +119,7 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center h-[120px] text-center my-12">
+      <div className="w-full flex flex-col items-center justify-center h-[200px] text-center my-12">
         <h2 className="h2-desktop">{staticData.title_header.value}</h2>
         <p className="w-[450px] p-standard-medium-desktop text-black-2">
           {staticData.title_sub.value}
@@ -127,7 +127,7 @@ export default function Homepage() {
       </div>
       <div className="flex gap-4 px-6 mb-10">
         {staticData.title_images.references.nodes.map((item, index) => (
-          <div key={index} className="overflow-hidden rounded-xl h-[450px]">
+          <div key={index} className="overflow-hidden rounded-xl flex-1 h-[450px]">
             <Image data={item.image} className="w-full h-full object-cover">
               {/* your content here */}
             </Image>
@@ -142,7 +142,7 @@ export default function Homepage() {
           className="w-full h-full object-cover"
         ></Image>
       </div>
-      <div className="py-10 border-y-1 border-white-4 my-14 bg-white-2">
+      <div className="py-10 border-y-1 border-white-4 mt-14 bg-white-2">
         <p className="h2-desktop text-center">
           {staticData.as_seen_header?.value}
         </p>

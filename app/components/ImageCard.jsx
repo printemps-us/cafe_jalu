@@ -216,7 +216,7 @@ function ImageCard({
               <p className="p-small-regular-desktop text-black-2">{lContent}</p>
             </div>
           </div>
-          <div className='w-full'>
+          <div className="w-full">
             <div className="flex gap-3 pb-6">
               <div className="flex-1">
                 {/* <div className="border-b-white-4 border-b-1 h-9 py-0.5 flex items-center">
@@ -252,6 +252,7 @@ function ImageCard({
                   bgColor={secondary_button?.color.value}
                   hoverColor={secondary_button?.hover_color.value}
                   onClick={handleClick}
+                  noMaxWidth
                   h={'42px'}
                   w={'100%'}
                 ></AnimatedButton>
@@ -282,10 +283,8 @@ function ImageCard({
             )}
             <h3 className="h3-desktop">{header}</h3>
             <div className="flex items-center mt-4">
-                  <p className="p-small-regular-desktop text-black-2">
-                    {lContent}
-                  </p>
-                </div>
+              <p className="p-small-regular-desktop text-black-2">{lContent}</p>
+            </div>
           </div>
           <div>
             <div className="flex gap-3 pb-6">
@@ -293,7 +292,6 @@ function ImageCard({
                 {/* <div className="border-b-white-4 border-b-1 h-9 py-0.5 flex items-center">
                   <span className="label-desktop uppercase">{lHeader}</span>
                 </div> */}
-                
               </div>
               {/* <div className="flex-1">
                 <div className="border-b-white-4 border-b-1 h-9 py-0.5 flex items-center">

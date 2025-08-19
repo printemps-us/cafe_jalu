@@ -3,6 +3,8 @@ import {Image} from '@shopify/hydrogen';
 import {FormattedText} from '../functions/formatText';
 
 function StoreInfoMobile({data, bgColor = 'white'}) {
+  const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
   return (
     <div className="py-8 px-4 border-b border-[#E7E7E7]">
       <div className="flex flex-col gap-6">
@@ -30,7 +32,7 @@ function StoreInfoMobile({data, bgColor = 'white'}) {
             <span className="p-standard-bold-mobile uppercase">
               {item.header.value}
             </span>
-            {item.contact.value.includes('@') ? (
+            {isEmail(item.contact?.value) ? (
               <a
                 className="text-black-op70 p-small-regular-mobile underline-important"
                 href={`mailto:${item.contact.value}`}
