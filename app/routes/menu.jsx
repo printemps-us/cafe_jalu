@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import SmoothScroll from '~/components/SmoothScroll';
 import bg from '~/assets/cafejalubackground.png';
+import FooterComponent from '~/components/FooterComponent';
 export async function loader(args) {
   const staticData = await loadStaticData(args);
 
@@ -175,87 +176,109 @@ function menu() {
           <Logo></Logo>
         </Link>
       </div>
-      <div
+                   <div
         ref={roomsHeaderRef}
-        className={`flex hide-scrollbar px-8 gap-8 overflow-x-auto sticky top-[100px] bg-white py-[18px] z-20`}
+        className="flex gap-8 w-full px-8 sticky hide-scrollbar top-[100px] py-[18px] z-20 overflow-x-scroll border-b-1 border-b-[#00CF77]"
         style={{
-          paddingLeft: `max((100vw - ${nodesWithLinks * 132}px) / 2, 0px)`,
+          paddingLeft: `max((100vw - ${nodesWithLinks * 132}px) / 2, 20px)`,
+          backgroundColor: '#ffffff',
         }}
       >
-        {data.staticData.content?.references.nodes.map((item, index) => (
-          <button
-            key={index}
-            className="text-center w-[100px]  flex flex-col gap-3 cursor-pointer items-center link"
-            onClick={(e) => handleLinkClick(e, `#${item.link?.value}`)}
-          >
-            <div
-              className={`${
-                currentSection == item.link?.value ? 'border-2' : ''
-              } border-white-4 h-[100px] p-0.5 w-full rounded-full room`}
-            >
-              <div className="rounded-full w-full h-full overflow-hidden ">
-                <Image
-                  className="h-full w-full"
-                  src={item.image?.reference?.image.url}
-                  alt={item.image?.reference?.image.altText}
-                  sizes="(min-width: 2em) 5em, 10em"
-                />
-              </div>
-            </div>
-            <span
-              className={`${
-                currentSection == item.link?.value
-                  ? 'p-small-bold-desktop'
-                  : 'p-small-regular-desktop'
-              } text-black-2`}
-            >
-              {item.title?.value}
-            </span>
-          </button>
+        {data?.staticData.content?.references?.nodes?.map((item, index) => (
+          <>
+            {item?.link?.value && (
+              <Link
+                key={index}
+                className="text-center w-[100px] flex flex-col gap-3 cursor-pointer items-center link"
+                to={`#${item?.link?.value}`}
+              >
+                <div
+                  className={`${
+                    currentSection == item?.link?.value ? 'border-2' : ''
+                  } border-[#00CF77] h-[75px] w-[75px] p-0.5 rounded-full room`}
+                >
+                  <div className="rounded-full w-full h-full overflow-hidden">
+                    <Image
+                      className="h-full w-full object-cover"
+                      src={item?.image?.reference?.image?.url}
+                      alt={item?.image?.reference?.image?.altText}
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                      }}
+                      sizes="(min-width: 2em) 5em, 10em"
+                    />
+                  </div>
+                </div>
+                <span
+                  className={`${
+                    currentSection == item?.link?.value
+                      ? 'p-small-bold-desktop'
+                      : 'p-small-regular-desktop'
+                  } text-black-2`}
+                >
+                  {item?.title?.value}
+                </span>
+              </Link>
+            )}
+          </>
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-[120px] pt-[50px] pb-[300px] my-[60px]">
-        {data?.staticData.content?.references?.nodes.map((item, index) => (
+      <div
+        className="flex flex-col items-center gap-[120px] pt-[120px] pb-[200px]"
+        style={{
+          color: 'black',
+          backgroundColor: '#ffffff',
+        }}
+      >
+        {organizedMenuItems.map((section, section_index) => (
           <div
-            key={`${item.title?.value}_title_${index}`}
-            id={item.link?.value}
+            key={`${section[0]?.title?.value}_title_${section_index}`}
+            id={section[0]?.link?.value}
             className="section flex flex-col items-center gap-8"
           >
-            <h3 className="h3-desktop pb-3 moderat-bold text-center">
-              {item.title?.value}
-            </h3>
-            {item.menu_items?.references.nodes.map((item, index) => (
+            {section.map((item, index) => (
               <div
-                key={`${item.title?.value}_item_${index}`}
-                className="gap-3 flex flex-col items-center"
+                key={`${item?.title?.value}_title_${index}`}
+                className="flex flex-col items-center gap-8"
               >
-                <p className="p-standard-bold-desktop uppercase urbanist text-center">
-                  {item.title?.value}
-                </p>
-                {item.ingredients && (
-                  <div className="flex urbanist">
-                    {JSON.parse(item.ingredients?.value).map(
-                      (ingredient, index, array) => (
-                        <p
-                          key={`${ingredient}_item_${index}`}
-                          className="p-small-regular-desktop text-black-2 text-center"
-                        >
-                          {ingredient}
-                          {index < array.length - 1 && '・'}
-                        </p>
-                      ),
-                    )}
+                <h3 className="h3-desktop pb-3 moderat-bold text-center">
+                  {item?.title?.value}
+                </h3>
+                {item?.menu_items?.references?.nodes?.map((item, index) => (
+                  <div
+                    key={`${item?.title?.value}_item_${index}`}
+                    className="gap-3 flex flex-col items-center w-[90%]"
+                  >
+                    <p className="p-standard-bold-desktop uppercase urbanist text-center">
+                      {item.title.value}
+                    </p>
+                    <div className="flex urbanist flex-wrap text-center justify-center">
+                      {item?.ingredients?.value &&
+                        JSON.parse(item?.ingredients?.value).map(
+                          (ingredient, index, array) => (
+                            <p
+                              key={`${ingredient}_item_${index}`}
+                              className="p-small-regular-desktop text-center"
+                            >
+                              {ingredient}
+                              {index < array.length - 1 && '・'}
+                            </p>
+                          ),
+                        )}
+                    </div>
+                    <p className="p-small-bold-desktop text-center">
+                      ${item?.price?.value}
+                    </p>
                   </div>
-                )}
-                <p className="p-small-bold-desktop text-center">
-                  ${item.price?.value}
-                </p>
+                ))}
               </div>
             ))}
           </div>
         ))}
       </div>
+      <FooterComponent></FooterComponent>
     </SmoothScroll>
   );
 }
