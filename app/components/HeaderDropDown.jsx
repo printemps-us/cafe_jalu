@@ -52,16 +52,34 @@ function HeaderDropDown({
       >
         <div className="flex flex-col gap-2 w-[180px] h-[230px] p-small-regular-desktop">
           <p className="label-desktop">{headerData?.title?.value}</p>
-          {headerData?.links?.references.nodes.map((item, index) => (
-            <Link
-              className=" text-black-op70 p-small-regular-desktop hover:![font-weight:600] !no-underline"
-              key={`${item?.text?.value}_header`}
-              to={item?.url?.value}
-              onClick={handleMouseLeave}
-            >
-              {item?.text?.value}
-            </Link>
-          ))}
+          {headerData?.links?.references.nodes.map((item) => {
+            const url = item?.url?.value;
+            const isExternal =
+              url &&
+              !url.startsWith('/')
+
+            return isExternal ? (
+              <a
+                key={`${item?.text?.value}_header`}
+                href={url}
+                onClick={handleMouseLeave}
+                className="text-black-op70 p-small-regular-desktop hover:![font-weight:600] !no-underline"
+                target="_blank" // change to "_self" if you want same-tab navigation
+                rel="noopener noreferrer"
+              >
+                {item?.text?.value}
+              </a>
+            ) : (
+              <Link
+                key={`${item?.text?.value}_header`}
+                to={url}
+                onClick={handleMouseLeave}
+                className="text-black-op70 p-small-regular-desktop hover:![font-weight:600] !no-underline"
+              >
+                {item?.text?.value}
+              </Link>
+            );
+          })}
         </div>
 
         {headerData?.image_links?.references.nodes.map((item, index) => (

@@ -41,17 +41,6 @@ function HomePageMobile({staticData}) {
 
         <div className="mt-12 w-full flex flex-col gap-3 justify-center items-center">
           <AnimatedButton
-            text={'Book with Resy'}
-            bgColor={'#00d58d'}
-            hoverColor={'#00d58d'}
-            textColor={'black'}
-            border="#00d58d"
-            hoverBorder={'#00d58d'}
-            onClick={() => setModalOpen(true)}
-            h="48px"
-            w="100%"
-          />
-          <AnimatedButton
             text={'View Menu'}
             bgColor={'#00d58d'}
             hoverColor={'#00d58d'}

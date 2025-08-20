@@ -41,7 +41,7 @@ query StaticPageContent {
           }
         }
       }
-        content_block_2_header: field(key: "content_block_2_header") {
+      content_block_2_header: field(key: "content_block_2_header") {
         value
       }
       content_block_2_content: field(key: "content_block_2_content") {
@@ -49,8 +49,20 @@ query StaticPageContent {
       }
       content_block_2_image: field(key: "content_block_2_image") {
         reference {
+          __typename
           ... on MediaImage {
             image {
+              url
+              altText
+            }
+          }
+          ... on Video {
+            sources {
+              url
+              mimeType
+              format
+            }
+            previewImage {
               url
               altText
             }
@@ -59,8 +71,20 @@ query StaticPageContent {
       }
       tradition_image: field(key: "tradition_image") {
         reference {
+          __typename
           ... on MediaImage {
             image {
+              url
+              altText
+            }
+          }
+          ... on Video {
+            sources {
+              url
+              mimeType
+              format
+            }
+            previewImage {
               url
               altText
             }
@@ -77,15 +101,15 @@ query StaticPageContent {
               value
             }
             image: field(key: "image") {
-        reference {
-          ... on MediaImage {
-            image {
-              url
-              altText
+              reference {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                  }
+                }
+              }
             }
-          }
-        }
-      }
           }
         }
       }
@@ -97,17 +121,17 @@ query StaticPageContent {
             }
             quote: field(key: "quote") {
               value
-}
-              image: field(key: "image") {
-        reference {
-          ... on MediaImage {
-            image {
-              url
-              altText
             }
-          }
-        }
-      }
+            image: field(key: "image") {
+              reference {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                  }
+                }
+              }
+            }
           }
         }
       }

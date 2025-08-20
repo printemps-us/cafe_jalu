@@ -214,16 +214,33 @@ function HeaderMobile({data, pathname}) {
 
                 {activeAccordion === 'about' && (
                   <div className="pb-4 space-y-3 animate-fadeIn">
-                    {data?.links?.references.nodes.map((item, index) => (
-                      <Link
-                        key={`${item?.text?.value}_mobile`}
-                        to={item?.url?.value}
-                        className="moderat-bold block text-[#000] text-opacity-80 text-base pl-4 py-3 hover:text-opacity-100 transition-opacity touch-manipulation"
-                        onClick={handleMenuLinkClick}
-                      >
-                        {item?.text?.value}
-                      </Link>
-                    ))}
+                    {data?.links?.references.nodes.map((item) => {
+                      const url = item?.url?.value;
+                      const isExternal =
+                        url &&
+                        !url.startsWith('/')
+                      return isExternal ? (
+                        <a
+                          key={`${item?.text?.value}_mobile`}
+                          href={url}
+                          className="moderat-bold block text-[#000] text-opacity-80 text-base pl-4 py-3 hover:text-opacity-100 transition-opacity touch-manipulation"
+                          onClick={handleMenuLinkClick}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item?.text?.value}
+                        </a>
+                      ) : (
+                        <Link
+                          key={`${item?.text?.value}_mobile`}
+                          to={url}
+                          className="moderat-bold block text-[#000] text-opacity-80 text-base pl-4 py-3 hover:text-opacity-100 transition-opacity touch-manipulation"
+                          onClick={handleMenuLinkClick}
+                        >
+                          {item?.text?.value}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -253,7 +270,7 @@ function HeaderMobile({data, pathname}) {
 
             {/* Reservation Button */}
             <div className="p-6 border-t border-[#000] border-opacity-20">
-              <AnimatedButton
+              {/* <AnimatedButton
                 text={'Reservations'}
                 bgColor={'#00d58d'}
                 hoverColor={'#00d58d'}
@@ -266,7 +283,7 @@ function HeaderMobile({data, pathname}) {
                 }}
                 h="48px"
                 w="100%"
-              />
+              /> */}
             </div>
           </div>
         </div>

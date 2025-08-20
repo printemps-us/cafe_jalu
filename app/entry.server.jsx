@@ -36,6 +36,7 @@ export default async function handleRequest(
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com',
     ], // Allow fonts
+    mediaSrc: ["'self'", 'https://cafejalucom.myshopify.com/'],
     scriptSrc: [
       "'self'",
       'https://cdn.shopify.com',

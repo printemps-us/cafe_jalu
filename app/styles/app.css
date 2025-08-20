@@ -21,9 +21,12 @@
   --color-dark: #000;
   --color-light: #fff;
 }
-
-img {
-  border-radius: 12px;
+body {
+  font-family: "Urbanist", serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  margin: 0;
 }
 
 .background {

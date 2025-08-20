@@ -8,7 +8,7 @@ import QuoteBlock from '~/components/QuoteBlock';
 import FooterComponent from '~/components/FooterComponent';
 import useIsMobile from '~/components/functions/isMobile';
 import AboutMobile from '~/components/mobile/AboutMobile';
-
+import MediaComponent from '~/components/MediaComponent';
 export const loader = createStaticDataLoader(ABOUT_QUERY);
 
 export const meta = ({data}) => {
@@ -71,11 +71,7 @@ function About() {
           </p>
         </div>
         <div className="flex-1 h-full w-full">
-          <Image
-            data={staticData.tradition_image.reference.image}
-            sizes="(min-width: 45em) 50vw, 100vw"
-            className="w-full h-full object-cover"
-          ></Image>
+          <MediaComponent data={staticData.tradition_image.reference} />
         </div>
       </div>
       <div id='the-chef'>
@@ -101,11 +97,8 @@ function About() {
         id="printemp-ny"
       >
         <div className="flex-1 h-full w-full">
-          <Image
-            data={staticData.content_block_2_image.reference.image}
-            sizes="(min-width: 45em) 50vw, 100vw"
-            className="w-full h-full object-cover"
-          ></Image>
+          <MediaComponent data={staticData.content_block_2_image.reference}/>
+          
         </div>
         <div className="flex-1 flex flex-col gap-8 pr-6">
           <h2 className="h2-desktop mb-2">

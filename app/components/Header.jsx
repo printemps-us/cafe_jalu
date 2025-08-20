@@ -89,13 +89,13 @@ function HeaderComponent({data, isMobile, pathname}) {
   // Desktop header
   return (
     <>
-      <RestaurantModal
+      {/* <RestaurantModal
         setOpenModal={setModalOpen}
         openModal={modalOpen}
         venue_id={'87094'}
         link={'https://resy.com/cities/new-york-ny/venues/maison-passerelle'}
         api_key={'bJMvYfY5EA6goX7ncWUkx9PMjXdA5v66'}
-      ></RestaurantModal>
+      ></RestaurantModal> */}
       <div className="w-full bg-[#c5e4e4] flex justify-between sticky top-0 h-[100px] z-100">
         <div
           className={`p-4 transition-all duration-500 ease-in-out flex flex-col justify-center  ${
@@ -129,11 +129,11 @@ function HeaderComponent({data, isMobile, pathname}) {
           </Link>
           <Link
             to="/contact-us"
-            className="text-[#000] moderat-bold cursor-pointer"
+            className="text-[#000] moderat-bold cursor-pointer mr-6"
           >
             CONTACT US
           </Link>
-          <AnimatedButton
+          {/* <AnimatedButton
             text="RESERVE A TABLE"
             clickURL="https://resy.com/cities/new-york-ny/venues/maison-passerelle"
             onClick={() => setModalOpen(true)}
@@ -143,7 +143,7 @@ function HeaderComponent({data, isMobile, pathname}) {
             border="#00d58d"
             w="180px"
             h="40px"
-          />
+          /> */}
         </div>
         <HeaderDropDown
           isHover={isHover}

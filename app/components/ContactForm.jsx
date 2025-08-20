@@ -103,23 +103,10 @@ function ContactForm() {
               required
             >
               <option value="">Select an option</option>
-              <option value="Careers at Printemps New York">
-                Careers at Printemps New York
-              </option>
-              <option value="Client Services">Client Services</option>
-              <option value="General Inquiries">General Inquiries</option>
-              <option value="Press, Marketing, Events">
-                Press, Marketing, Events
-              </option>
-              <option value="Services at Printemps New York">
-                Services at Printemps New York
-              </option>
-              <option value="Unsubscribe from the Newsletter">
-                Unsubscribe from the Newsletter
-              </option>
-              <option value="Vendors & Collaborations">
-                Vendors & Collaborations
-              </option>
+              <option value="Restaurant Inquiries">Restaurant Inquiries</option>
+              <option value="Event Inquiries">Event Inquiries</option>
+              <option value="Reservations">Reservations</option>
+              <option value="Store Inquiries">Store Inquiries</option>
             </select>
             <textarea
               id="message"
