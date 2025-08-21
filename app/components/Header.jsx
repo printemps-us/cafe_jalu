@@ -10,7 +10,7 @@ import {useLocation} from '@remix-run/react';
 import Homepage from '~/routes/_index';
 import useIsMobile from './functions/isMobile';
 import HeaderMobile from './mobile/HeaderMobile';
-import Logo from '~/components/Logo';
+import LogoMain from '~/components/LogoMain';
 
 function HeaderComponent({data, isMobile, pathname}) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -104,7 +104,7 @@ function HeaderComponent({data, isMobile, pathname}) {
         >
           <Link to="/">
             <div className='w-[150px]'>
-              <Logo />
+              <LogoMain />
             </div>
           </Link>
         </div>
