@@ -69,7 +69,7 @@ query StaticPageContent {
           }
         }
       }
-      tradition_image: field(key: "tradition_image") {
+      tradition_image: field(key: "tradition_image2") {
         reference {
           __typename
           ... on MediaImage {

@@ -31,7 +31,7 @@ function FriendTile({
         onMouseLeave={handleMouseLeave}
         className={` rounded-xl bg-[#c5e4e4] flex-1 flex p-6 gap-3`}
       >
-        <div className='w-[60px]'>
+        <div className='w-[40px]'>
           <Logo></Logo>
         </div>
         <div className={`flex-1 ${is_mobile ? 'pt-0' : 'pt-2'}`}>
