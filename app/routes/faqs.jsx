@@ -22,11 +22,6 @@ function Faqs() {
   const {staticData, isMobile} = useLoaderData();
   const isMobileActive = useIsMobile(isMobile);
 
-  // If mobile, render the mobile version
-  if (isMobileActive) {
-    return <FaqsMobile staticData={staticData} />;
-  }
-
   const faqData = staticData.faqs.references.nodes.reduce((acc, item) => {
     const key = item.section_id?.value;
     const value = item.options.references.nodes;
@@ -34,6 +29,12 @@ function Faqs() {
     return acc;
   }, {});
   const [selected, setSelected] = useState(() => Object.keys(faqData)[0] || '');
+  
+  // If mobile, render the mobile version
+  if (isMobileActive) {
+    return <FaqsMobile staticData={staticData} />;
+  }
+
   return (
     <div>
       <div className=" w-full pt-[80px] pb-[30px] flex-col flex items-center gap-10">
