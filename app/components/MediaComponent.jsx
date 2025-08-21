@@ -1,10 +1,7 @@
 import React from 'react';
 import {Image} from '@shopify/hydrogen';
 function MediaComponent({data}) {
-  console.log(data);
   if (data?.__typename == 'Video') {
-    console.log('test');
-    console.log('Rendering video');
     return (
       <div className='overflow-hidden rounded-xl'>
         <video

@@ -61,7 +61,7 @@ function About() {
         ></Image>
       </div>
       <div
-        className="flex px-6 py-[60px] gap-12 rounded-b-xl bg-white z-20 relative rounded-t-xl mt-[-20px] h-[500px]"
+        className="flex px-6 py-[60px] gap-12 rounded-b-xl bg-white z-20 relative rounded-t-xl mt-[-20px]"
         id="printemp-ny"
       >
         <div className="flex-1 flex flex-col gap-8 pr-6">
