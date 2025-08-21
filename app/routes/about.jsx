@@ -51,7 +51,7 @@ function About() {
   if (isMobileActive) {
     return <AboutMobile staticData={staticData} />;
   }
-  
+
   return (
     <div>
       <div className="overflow-hidden w-full h-[360px]">
@@ -128,7 +128,7 @@ function About() {
           }
         />
       </div>
-      <QuoteBlock small data={staticData.chef_quote.reference}></QuoteBlock>
+      <QuoteBlock small data={staticData.architect_quote.reference}></QuoteBlock>
       {/* <div className='h-12'></div> */}
       <FooterComponent></FooterComponent>
     </div>
