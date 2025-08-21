@@ -211,7 +211,7 @@ function ImageCard({
                 {descriptor}
               </span>
             )}
-            <h3 className="h3-desktop">{header}</h3>
+            <h3 className="h3-desktop uppercase">{header}</h3>
             <div className="flex items-center mt-4">
               <p className="p-small-regular-desktop text-black-2">{lContent}</p>
             </div>

@@ -53,7 +53,7 @@ function ImageCardMobile({
       {/* Content Section */}
       <div className="p-6 flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <h3 className="h3-mobile">{header}</h3>
+          <h3 className="h3-mobile uppercase">{header}</h3>
           {descriptor && (
             <p className="p-small-regular-mobile text-black-3 uppercase">
               {descriptor}
