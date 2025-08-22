@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Image} from '@shopify/hydrogen';
+import IG from '~/assets/JaluIG.png'
 function FooterComponent({instagram = false}) {
   const [state, setState] = useState({
     isWaiting: false,
@@ -49,11 +50,11 @@ function FooterComponent({instagram = false}) {
           </a>
         )}
         <p className="moderat-bold sign-up-text" style={{color: '#000'}}>
-          Cafe Jalu is part of Printemps new york, For more information
-          sign up for our newsletter
+          Cafe Jalu is part of Printemps new york, For more information sign up
+          for our newsletter
         </p>
       </div>
-      <div className="footer-area">
+      <div className="footer-area overflow-hidden h-[50px]">
         <p
           className="moderat-bold"
           style={{fontSize: '14px', color: 'black', marginRight: '8px'}}
@@ -93,6 +94,15 @@ function FooterComponent({instagram = false}) {
             </p>
           </button>
         )}
+        <div className="">
+          <a
+            href="https://urlgeni.us/instagram/cafejalu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={IG} alt="Instagram Logo" width={50} />
+          </a>
+        </div>
       </div>
     </div>
   );
