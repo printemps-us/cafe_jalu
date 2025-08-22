@@ -168,14 +168,6 @@ function menu() {
     )?.length || 0;
   return (
     <SmoothScroll>
-      <div
-        className="p-14 flex justify-center w-full"
-        style={{backgroundImage: `url(${bg})`}}
-      >
-        <Link to="/" className="responsive-logo">
-          <Logo></Logo>
-        </Link>
-      </div>
                    <div
         ref={roomsHeaderRef}
         className="flex gap-8 w-full px-8 sticky hide-scrollbar top-[100px] py-[18px] z-20 overflow-x-scroll border-b-1 border-b-[#00CF77]"
