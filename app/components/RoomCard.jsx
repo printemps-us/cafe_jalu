@@ -87,7 +87,7 @@ function RoomCard({header, sub, image, button_text, link}) {
 
         <div>
           <AnimatedButton
-            hoverColor="#AF4145"
+            hoverColor="#00d58d"
             h="42px"
             w="100%"
             text={button_text}
