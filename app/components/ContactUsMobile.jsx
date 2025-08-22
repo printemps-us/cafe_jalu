@@ -82,7 +82,7 @@ const ContactUsMobile = ({data}) => {
         <div className="px-6 justify-center items-center">
           <ContactForm />
         </div>
-        <div className="flex text-center mb-10">
+        <div className="flex text-center mb-10 px-6">
           <FormattedText text={data.privacy.value} />
         </div>
       </div>
