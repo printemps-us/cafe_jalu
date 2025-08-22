@@ -80,7 +80,7 @@ function AboutMobile({staticData}) {
       </div>
 
       {/* Architect Quote */}
-      <QuoteBlockMobile data={staticData.chef_quote.reference} />
+      <QuoteBlockMobile data={staticData.architect_quote.reference} />
 
       {/* Footer */}
       <FooterMobile />
