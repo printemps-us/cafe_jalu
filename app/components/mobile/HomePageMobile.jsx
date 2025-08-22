@@ -5,6 +5,8 @@ import RestaurantModal from '../RestaurantModal';
 import RoomCard from '../RoomCard';
 import FooterMobile from './FooterMobile';
 import LogoMain from '../LogoMain';
+import bg from '~/assets/cafejalubackground.png';
+
 function HomePageMobile({staticData}) {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -19,7 +21,7 @@ function HomePageMobile({staticData}) {
       />
 
       {/* Hero Section */}
-      <div className="bg-[#c5e4e4] flex flex-col items-center gap-2 py-16 px-4">
+      <div className="bg-[#c5e4e4] flex flex-col items-center gap-2 py-16 px-4" style={{backgroundImage: `url(${bg})`}}>
         <div className='w-[80vw] mb-10'>
           <LogoMain></LogoMain>
         </div>
