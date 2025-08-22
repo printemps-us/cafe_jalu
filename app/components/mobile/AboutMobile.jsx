@@ -30,6 +30,8 @@ function AboutMobile({staticData}) {
     }
   }, [location]);
 
+  console.log(staticData.tradition_image.reference, 'staticData.tradition_image.reference');
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -40,7 +42,7 @@ function AboutMobile({staticData}) {
         <TraditionSectionMobile
           header={staticData.tradition_header.value}
           content={staticData.tradition_content.value}
-          image={staticData.tradition_image.reference.image}
+          image={staticData.tradition_image.reference}
         />
       </div>
 
@@ -61,7 +63,7 @@ function AboutMobile({staticData}) {
       <TraditionSectionMobile
         header={staticData.tradition_header.value}
         content={staticData.tradition_content.value}
-        image={staticData.tradition_image.reference.image}
+        image={staticData.tradition_image.reference}
         imageFirst={true}
       />
 

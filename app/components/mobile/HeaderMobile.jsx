@@ -8,7 +8,7 @@ import Plus from '~/assets/Plus.svg';
 import Minus from '~/assets/Minus.svg';
 import CloseIcon from '~/assets/CloseIcon.svg';
 import gsap from 'gsap';
-import Logo from '../Logo';
+import LogoMain from '../LogoMain';
 function HeaderMobile({data, pathname}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -132,7 +132,7 @@ function HeaderMobile({data, pathname}) {
           }`}
         >
           <Link className="w-[125px]" to="/" onClick={handleMenuLinkClick}>
-            <Logo />
+            <LogoMain />
           </Link>
         </div>
 
@@ -179,7 +179,7 @@ function HeaderMobile({data, pathname}) {
           <div className="flex items-center p-6 border-b border-[#000] border-opacity-20">
             <div className="flex flex-1 flex-col justify-center items-center">
               <Link className="w-[125px]" to="/">
-                <Logo></Logo>
+                <LogoMain></LogoMain>
               </Link>
             </div>
             <button

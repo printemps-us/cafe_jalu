@@ -2,7 +2,7 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense, useState} from 'react';
 import {Image, Money, getSeoMeta} from '@shopify/hydrogen';
-import Logo from '~/components/Logo';
+import LogoMain from '~/components/LogoMain';
 import bg from '~/assets/cafejalubackground.png';
 import AnimatedButton from '~/components/AnimatedButton';
 import HomePageMobile from '~/components/mobile/HomePageMobile';
@@ -39,7 +39,7 @@ export default function Homepage() {
     <div className="background">
       <div className="main-area py-12" style={{backgroundImage: `url(${bg})`}}>
         <div className="responsive-logo" style={{marginBottom: 12}}>
-          <Logo></Logo>
+          <LogoMain></LogoMain>
         </div>
         <p
           className="moderat-bold"
