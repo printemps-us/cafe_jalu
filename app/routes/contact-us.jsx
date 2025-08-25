@@ -29,9 +29,9 @@ function ContactUs() {
         </div>
 
         {/* Two Column Layout */}
-        <div className="flex w-full px-[15%] gap-12 mb-20">
+        <div className="flex w-full px-[15%] gap-12 mb-20 justify-center">
           {/* Left Column */}
-          <div className="w-[50%] pt-[60px]">
+          <div className="w-[60%] pt-[60px]">
             {/* Content Text */}
 
             <div className="flex flex-col gap-6 mb-12">
@@ -102,11 +102,11 @@ function ContactUs() {
           </div>
 
           {/* Right Column */}
-          <div className="w-[50%] pt-[60px]">
+          {/* <div className="w-[50%] pt-[60px]">
             <ContactForm />
-          </div>
+          </div> */}
         </div>
-        <div className='flex justify-center mb-20'>
+        <div className="flex justify-center mb-20">
           <FormattedText text={staticData.privacy.value} />
         </div>
         <FooterComponent></FooterComponent>
