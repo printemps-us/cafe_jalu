@@ -21,14 +21,15 @@
   --color-dark: #000;
   --color-light: #fff;
 }
-
-img {
-  border-radius: 4px;
+body {
+  font-family: "Urbanist", serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  margin: 0;
 }
 
 .background {
-  background-color: #1E783D;
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -58,7 +59,7 @@ img {
   justify-content: center;
   align-items: center;
   gap: 14px;
-  margin-bottom: 12px;
+ padding: 12px;
 
 }
 
