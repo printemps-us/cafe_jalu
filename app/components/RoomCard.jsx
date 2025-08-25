@@ -22,7 +22,7 @@ function RoomCard({header, sub, image, button_text, link}) {
   };
   useEffect(() => {
     // Measure heights of all content sections
-    const contentHeight = containerRef.current?.scrollHeight || 0;
+    const contentHeight = containerRef.current?.scrollHeight || 141;
     setHeight(contentHeight);
   }, [sub]);
 
