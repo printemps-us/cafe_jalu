@@ -8,6 +8,9 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import SmoothScroll from '~/components/SmoothScroll';
 import bg from '~/assets/cafejalubackground.png';
 import FooterComponent from '~/components/FooterComponent';
+import useIsMobile from '~/components/functions/isMobile';
+import FooterMobile from '~/components/mobile/FooterMobile';
+
 export async function loader(args) {
   const staticData = await loadStaticData(args);
 
@@ -40,6 +43,7 @@ function menu() {
   const data = useLoaderData();
   const navigate = useNavigate();
   const isInitialRender = useRef(true);
+  const isMobileActive = useIsMobile(false);
 
   const [width, setWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0,
@@ -168,7 +172,7 @@ function menu() {
     )?.length || 0;
   return (
     <SmoothScroll>
-                   <div
+      <div
         ref={roomsHeaderRef}
         className="flex gap-8 w-full px-8 sticky hide-scrollbar top-[100px] py-[18px] z-20 overflow-x-scroll border-b-1 border-b-[#00CF77]"
         style={{
@@ -270,7 +274,13 @@ function menu() {
           </div>
         ))}
       </div>
-      <FooterComponent></FooterComponent>
+      {!isMobileActive ? (
+        <FooterComponent></FooterComponent>
+      ) : (
+        <div className="mt-[-2px]">
+          <FooterMobile></FooterMobile>
+        </div>
+      )}
     </SmoothScroll>
   );
 }
