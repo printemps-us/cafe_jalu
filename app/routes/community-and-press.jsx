@@ -15,6 +15,7 @@ import FriendTile from '~/components/FriendTile';
 import RoomCard from '~/components/RoomCard';
 import useIsMobile from '~/components/functions/isMobile';
 import CommunityMobile from '~/components/mobile/CommunityMobile';
+import SmoothScroll from '~/components/SmoothScroll';
 export const loader = createStaticDataLoader(PRESS_QUERY);
 
 export const meta = ({data}) => {
@@ -61,7 +62,7 @@ function Press() {
   //     };
   //   }, []);
   return (
-    <div>
+    <SmoothScroll>
       {/* <div className="py-24">
         <p className="h2-desktop text-center">
           {staticData.press_header?.value}
@@ -135,7 +136,7 @@ function Press() {
         </div>
       </div>
       <FooterComponent></FooterComponent>
-    </div>
+    </SmoothScroll>
   );
 }
 

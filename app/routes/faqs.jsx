@@ -9,6 +9,7 @@ import FooterComponent from '~/components/FooterComponent';
 import QuoteBlock from '~/components/QuoteBlock';
 import useIsMobile from '~/components/functions/isMobile';
 import FaqsMobile from '~/components/mobile/FaqsMobile';
+import SmoothScroll from '~/components/SmoothScroll';
 export const loader = createStaticDataLoader(FAQ_QUERY);
 
 export const meta = ({data}) => {
@@ -36,7 +37,7 @@ function Faqs() {
   }
 
   return (
-    <div>
+    <SmoothScroll>
       <div className=" w-full pt-[80px] pb-[30px] flex-col flex items-center gap-10">
         {/* <p className="h5-desktop">{staticData.section?.value}</p> */}
         <h4 className="h2-desktop">{staticData.header?.value}</h4>
@@ -81,7 +82,7 @@ function Faqs() {
         ))}
       </div>
       <FooterComponent></FooterComponent>
-    </div>
+    </SmoothScroll>
   );
 }
 

@@ -11,6 +11,7 @@ import {HOME_QUERY} from '~/components/query/homeQuery';
 import {createStaticDataLoader} from '~/components/functions/loadStaticData';
 import RoomCard from '~/components/RoomCard';
 import FooterComponent from '~/components/FooterComponent';
+import SmoothScroll from '~/components/SmoothScroll';
 /**
  * @type {MetaFunction}
  */
@@ -36,130 +37,138 @@ export default function Homepage() {
     return <HomePageMobile staticData={staticData} />;
   }
   return (
-    <div className="background">
-      <div className="main-area py-12" style={{backgroundImage: `url(${bg})`}}>
-        <div className="responsive-logo" style={{marginBottom: 12}}>
-          <LogoMain></LogoMain>
-        </div>
-        <p
-          className="moderat-bold"
-          style={{fontSize: '1.2rem', color: '#00CF77'}}
+    <SmoothScroll>
+      <div className="background">
+        <div
+          className="main-area py-12"
+          style={{backgroundImage: `url(${bg})`}}
         >
-          HOURS:
-        </p>
-        <p
-          className="moderat-bold"
-          style={{fontSize: '1.2rem', color: '#00CF77'}}
-        >
-          8:00 AM - 7:00 PM
-        </p>
-        {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
+          <div className="responsive-logo" style={{marginBottom: 12}}>
+            <LogoMain></LogoMain>
+          </div>
+          <p
+            className="moderat-bold"
+            style={{fontSize: '1.2rem', color: '#00CF77'}}
+          >
+            HOURS:
+          </p>
+          <p
+            className="moderat-bold"
+            style={{fontSize: '1.2rem', color: '#00CF77'}}
+          >
+            8:00 AM - 7:00 PM
+          </p>
+          {/* <p className="moderat-bold" style={{color: '#00CF77'}}>
           One Wall street, NY
         </p>*/}
-        <div className="mt-6 h-auto w-full flex max-[835px]:flex-col gap-3 justify-center items-center">
-          <AnimatedButton
-            text={'View Menu'}
-            bgColor={'#00d58d'}
-            hoverColor={'#00d58d'}
-            textColor={'black'}
-            border="#00d58d"
-            hoverBorder={'#00d58d'}
-            clickURL={'/menu'}
-            h="42px"
-            w="90%"
-            arrow
-            arrowStart
-          />
-        </div>
-      </div>
-      <div className="w-full flex flex-col items-center justify-center py-12 text-center my-6">
-        <p className="w-[450px] p-standard-medium-desktop text-black-2">
-          {staticData.about_sub.value}
-        </p>
-      </div>
-      <div className="flex gap-2 w-full overflow-y-hidden hide-scrollbar h-[550px] no-overscroll px-8">
-        {staticData.about_options.references.nodes.map((item, index) => (
-          <div key={item.id} id={item.header.value} className="flex-1">
-            <RoomCard
-              header={item.header.value}
-              sub={item.sub?.value}
-              button_text={item.button_text.value}
-              image={item.image.reference.image}
-              link={item.link?.value}
+          <div className="mt-6 h-auto w-full flex max-[835px]:flex-col gap-3 justify-center items-center">
+            <AnimatedButton
+              text={'View Menu'}
+              bgColor={'#00d58d'}
+              hoverColor={'#00d58d'}
+              textColor={'black'}
+              border="#00d58d"
+              hoverBorder={'#00d58d'}
+              clickURL={'/menu'}
+              h="42px"
+              w="90%"
+              arrow
+              arrowStart
             />
           </div>
-        ))}
-      </div>
-
-      <div className="h-[500px] bg-white-2 border-y-1 border-y-white-4 flex">
-        <div
-          className="flex-1 rounded-br-[300px]"
-          style={{
-            backgroundSize: 'cover', // Ensures the image covers the entire container
-            backgroundPosition: 'center', // Centers the image within the container
-            backgroundRepeat: 'no-repeat', // Prevents the image from repeating
-            backgroundImage: `url(${staticData.find_us_image.reference.image.url})`,
-          }}
-        ></div>
-        <div className="flex-1 flex-col flex justify-center items-center gap-6 text-center py-8">
-          <h2 className="h2-desktop w-[220px]">
-            {staticData.find_us_title.value}
-          </h2>
-          <p className="w-[450px] p-standard-medium-desktop text-black-2">
-            {staticData.find_us_sub.value}
-          </p>
-          <AnimatedButton
-            h={'42px'}
-            w={'339px'}
-            text={staticData.find_us_button.reference.button_text.value}
-            bgColor={staticData.find_us_button.reference.color.value}
-            hoverColor={staticData.find_us_button.reference.hover_color.value}
-            clickURL={staticData.find_us_button.reference?.link.value}
-          />
         </div>
-      </div>
-
-      <div className="w-full flex flex-col items-center justify-center h-[200px] text-center my-12">
-        <h2 className="h2-desktop">{staticData.title_header.value}</h2>
-        <p className="w-[450px] p-standard-medium-desktop text-black-2">
-          {staticData.title_sub.value}
-        </p>
-      </div>
-      <div className="flex gap-4 px-6 mb-10">
-        {staticData.title_images.references.nodes.map((item, index) => (
-          <div key={index} className="overflow-hidden rounded-xl flex-1 h-[450px]">
-            <Image data={item.image} className="w-full h-full object-cover">
-              {/* your content here */}
-            </Image>
-          </div>
-        ))}
-      </div>
-      {/* <StoreInfo data={staticData.icons} bgColor={'#AF4145'}></StoreInfo> */}
-
-      <div className="overflow-hidden w-full h-[300px]">
-        <Image
-          data={staticData.filler_image?.reference.image}
-          className="w-full h-full object-cover"
-        ></Image>
-      </div>
-      <div className="py-10 border-y-1 border-white-4 mt-14 bg-white-2">
-        <p className="h2-desktop text-center">
-          {staticData.as_seen_header?.value}
-        </p>
-        <div className="pt-12 flex gap-10 items-center overflow-x-auto py-4 justify-center">
-          {staticData.as_seen_images?.references.nodes.map((item, index) => (
-            <div key={index} className="h-10 flex-shrink-0">
-              <Image
-                data={item.image}
-                className="h-full w-auto object-contain"
+        <div className="w-full flex flex-col items-center justify-center py-12 text-center my-6">
+          <p className="w-[450px] p-standard-medium-desktop text-black-2">
+            {staticData.about_sub.value}
+          </p>
+        </div>
+        <div className="flex gap-2 w-full overflow-y-hidden hide-scrollbar h-[550px] no-overscroll px-8">
+          {staticData.about_options.references.nodes.map((item, index) => (
+            <div key={item.id} id={item.header.value} className="flex-1">
+              <RoomCard
+                header={item.header.value}
+                sub={item.sub?.value}
+                button_text={item.button_text.value}
+                image={item.image.reference.image}
+                link={item.link?.value}
               />
             </div>
           ))}
         </div>
-      </div>
 
-      <FooterComponent></FooterComponent>
-    </div>
+        <div className="h-[500px] bg-white-2 border-y-1 border-y-white-4 flex">
+          <div
+            className="flex-1 rounded-br-[300px]"
+            style={{
+              backgroundSize: 'cover', // Ensures the image covers the entire container
+              backgroundPosition: 'center', // Centers the image within the container
+              backgroundRepeat: 'no-repeat', // Prevents the image from repeating
+              backgroundImage: `url(${staticData.find_us_image.reference.image.url})`,
+            }}
+          ></div>
+          <div className="flex-1 flex-col flex justify-center items-center gap-6 text-center py-8">
+            <h2 className="h2-desktop w-[220px]">
+              {staticData.find_us_title.value}
+            </h2>
+            <p className="w-[450px] p-standard-medium-desktop text-black-2">
+              {staticData.find_us_sub.value}
+            </p>
+            <AnimatedButton
+              h={'42px'}
+              w={'339px'}
+              text={staticData.find_us_button.reference.button_text.value}
+              bgColor={staticData.find_us_button.reference.color.value}
+              hoverColor={staticData.find_us_button.reference.hover_color.value}
+              clickURL={staticData.find_us_button.reference?.link.value}
+            />
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col items-center justify-center h-[200px] text-center my-12">
+          <h2 className="h2-desktop">{staticData.title_header.value}</h2>
+          <p className="w-[450px] p-standard-medium-desktop text-black-2">
+            {staticData.title_sub.value}
+          </p>
+        </div>
+        <div className="flex gap-4 px-6 mb-10">
+          {staticData.title_images.references.nodes.map((item, index) => (
+            <div
+              key={index}
+              className="overflow-hidden rounded-xl flex-1 h-[450px]"
+            >
+              <Image data={item.image} className="w-full h-full object-cover">
+                {/* your content here */}
+              </Image>
+            </div>
+          ))}
+        </div>
+        {/* <StoreInfo data={staticData.icons} bgColor={'#AF4145'}></StoreInfo> */}
+
+        <div className="overflow-hidden w-full h-[300px]">
+          <Image
+            data={staticData.filler_image?.reference.image}
+            className="w-full h-full object-cover"
+          ></Image>
+        </div>
+        <div className="py-10 border-y-1 border-white-4 mt-14 bg-white-2">
+          <p className="h2-desktop text-center">
+            {staticData.as_seen_header?.value}
+          </p>
+          <div className="pt-12 flex gap-10 items-center overflow-x-auto py-4 justify-center">
+            {staticData.as_seen_images?.references.nodes.map((item, index) => (
+              <div key={index} className="h-10 flex-shrink-0">
+                <Image
+                  data={item.image}
+                  className="h-full w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <FooterComponent></FooterComponent>
+      </div>
+    </SmoothScroll>
   );
 }
 
