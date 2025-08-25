@@ -7,9 +7,9 @@ import {
   Scripts,
   useRouteError,
   useRouteLoaderData,
-  ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
+import {CustomScrollRestoration} from '~/components/CustomScrollRestoration';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import tailwindCss from './styles/tailwind.css?url';
@@ -192,7 +192,7 @@ export function Layout({children}) {
         ) : (
           children
         )}
-        <ScrollRestoration nonce={nonce} />
+        <CustomScrollRestoration />
         <Script src="/bloomreach.js" />
         <Script src="/googleAnalytics.js" />
         <Scripts nonce={nonce} />

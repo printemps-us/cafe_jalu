@@ -17,9 +17,6 @@ const SmoothScroll = ({children}) => {
       lenisRef.current.destroy();
     }
 
-    // Force scroll to top
-    window.scrollTo(0, 0);
-
     // Initialize new Lenis instance
     lenisRef.current = new Lenis({
       duration: 1.2,
