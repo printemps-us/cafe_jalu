@@ -13,7 +13,9 @@ function MediaComponent({data}) {
           autoPlay
           muted
           loop
-          controls={false} // change to true while debugging
+          playsInline
+          preload="auto"
+          controls={false}
           className="w-full h-full object-cover"
           aria-label="Background video"
         >
