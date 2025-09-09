@@ -42,13 +42,20 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://www.googletagmanager.com',
       'https://formspree.io/',
+      'https://a.klaviyo.com',
       'https://www.googletagmanager.com',
       "'unsafe-eval'",
       'https://eu2-api.eng.bloomreach.com',
       'https://widgets.resy.com', // Add this line to allow the Resy script
       // Include other allowed domains for script loading
     ],
-    connectSrc: ['https://eu2-api.eng.bloomreach.com', 'https://www.googletagmanager.com', 'https://www.google-analytics.com', 'https://formspree.io/',],
+    connectSrc: [
+      'https://eu2-api.eng.bloomreach.com',
+      'https://a.klaviyo.com',
+      'https://www.googletagmanager.com',
+      'https://www.google-analytics.com',
+      'https://formspree.io/',
+    ],
   });
 
   const body = await renderToReadableStream(
