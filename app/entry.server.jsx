@@ -55,6 +55,8 @@ export default async function handleRequest(
       'https://www.googletagmanager.com',
       'https://www.google-analytics.com',
       'https://formspree.io/',
+      'https://analytics.google.com',
+      'https://stats.g.doubleclick.net',
     ],
   });
 
