@@ -192,10 +192,9 @@ export function Layout({children}) {
         ) : (
           children
         )}
-        <CustomScrollRestoration />
-        <Script src="/bloomreach.js" />
-        <Script src="/gtm.js" />
-        <Script src="/googleAnalytics.js" />
+        <CustomScrollRestoration nonce={nonce} />
+        <Script src="/gtm.js" nonce={nonce} />
+        <Script src="/googleAnalytics.js" nonce={nonce} />
         <Scripts nonce={nonce} />
       </body>
     </html>
