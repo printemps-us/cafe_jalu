@@ -11,10 +11,12 @@ import Homepage from '~/routes/_index';
 import useIsMobile from './functions/isMobile';
 import HeaderMobile from './mobile/HeaderMobile';
 import LogoMain from '~/components/LogoMain';
+import Popup from './Popup';
 
-function HeaderComponent({data, isMobile, pathname}) {
+function HeaderComponent({data, isMobile, pathname, popupData}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  const [showNewsletter, setShowNewsletter] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const [showDetails, setShowDetails] = useState(() => {
@@ -32,7 +34,19 @@ function HeaderComponent({data, isMobile, pathname}) {
 
   // Use the server-side mobile detection
   const isMobileActive = useIsMobile(isMobile);
+  const [seen, setSeen] = useState(false);
 
+  useEffect(() => {
+    // safe - only runs in browser
+    const hasSeen = sessionStorage.getItem('hasSeenPopup');
+    if (hasSeen) {
+      setSeen(true);
+    }
+    const timer = setTimeout(() => {
+      setShowNewsletter(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     if (location.pathname !== '/') {
       setShowDetails(true);
@@ -82,6 +96,13 @@ function HeaderComponent({data, isMobile, pathname}) {
           link={'https://resy.com/cities/new-york-ny/venues/maison-passerelle'}
           api_key={'bJMvYfY5EA6goX7ncWUkx9PMjXdA5v66'}
         />
+        {!seen && showNewsletter && popupData.show.value == 'true' && (
+          <Popup
+            data={popupData}
+            onClose={() => setShowNewsletter(false)}
+            isMobile={true}
+          />
+        )}
         <HeaderMobile data={data} pathname={pathname} />
       </>
     );
@@ -96,6 +117,9 @@ function HeaderComponent({data, isMobile, pathname}) {
         link={'https://resy.com/cities/new-york-ny/venues/maison-passerelle'}
         api_key={'bJMvYfY5EA6goX7ncWUkx9PMjXdA5v66'}
       ></RestaurantModal> */}
+      {!seen && showNewsletter && popupData.show.value == 'true' && (
+        <Popup data={popupData} onClose={() => setShowNewsletter(false)} />
+      )}
       <div className="w-full bg-[#c5e4e4] flex justify-between sticky top-0 h-[100px] z-100">
         <div
           className={`p-4 transition-all duration-500 ease-in-out flex flex-col justify-center  ${
@@ -103,7 +127,7 @@ function HeaderComponent({data, isMobile, pathname}) {
           }`}
         >
           <Link to="/">
-            <div className='w-[150px]'>
+            <div className="w-[150px]">
               <LogoMain />
             </div>
           </Link>

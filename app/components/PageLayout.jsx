@@ -20,6 +20,7 @@ export function PageLayout({
   footer,
   header,
   pathname,
+  popupData,
   isLoggedIn,
   publicStoreDomain,
 }) {
@@ -43,6 +44,7 @@ export function PageLayout({
         data={header.metaobjects.nodes[0]}
         isMobile={isMobile}
         pathname={pathname}
+        popupData={popupData.metaobjects.nodes[0]}
       ></HeaderComponent>
       <main>{children}</main>
       {/* <Footer
