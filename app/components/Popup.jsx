@@ -65,25 +65,32 @@ function Popup({data, onClose, isMobile}) {
           </svg>
         </button>
 
-        <div className="md:h-[400px] flex">
-          {!isMobile && (
-            <div className="flex-1">
-              <Image
-                className="w-full h-full object-cover"
-                data={data.image.reference.image}
-              ></Image>
-            </div>
-          )}
+        <div className={`md:h-[400px] flex ${isMobile ? 'flex-col' : ''}`}>
+          <div className="flex-1">
+            <Image
+              className="w-full h-full object-cover"
+              data={data.image.reference.image}
+            ></Image>
+          </div>
+
           <div className="flex-1 flex flex-col justify-between p-6">
             <div className="pb-6">
               <h2
                 className={`${
-                  isMobile ? 'h3-mobile' : 'h3-desktop'
-                } uppercase text-start`}
+                  isMobile ? 'h4-mobile text-center' : 'h3-desktop text-start'
+                } uppercase `}
               >
                 {data.title.value}
               </h2>
-              <p className="text-start p-small-regular-desktop">{data.content.value}</p>
+              <p
+                className={` ${
+                  isMobile
+                    ? 'p-xsmall-regular-mobile text-center'
+                    : 'p-small-regular-desktop text-start'
+                }`}
+              >
+                {data.content.value}
+              </p>
             </div>
             <AnimatedButton
               text={data.button.reference?.button_text.value}
