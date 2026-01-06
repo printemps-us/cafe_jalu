@@ -37,7 +37,7 @@ function HomePageMobile({staticData}) {
             className="moderat-bold"
             style={{fontSize: '1.2rem', color: '#00CF77'}}
           >
-            8:00 AM - 8:00 PM
+            8:00 AM - 7:00 PM
           </p>
         </div>
 
