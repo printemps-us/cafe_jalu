@@ -1,5 +1,5 @@
 import {useNonce, getShopAnalytics, Analytics, Script} from '@shopify/hydrogen';
-import {defer} from '@shopify/remix-oxygen';
+import {defer, redirect} from '@shopify/remix-oxygen';
 import {
   Links,
   Meta,
@@ -66,6 +66,7 @@ export function links() {
  * @param {LoaderFunctionArgs} args
  */
 export async function loader(args) {
+  throw redirect('https://us.printemps.com/visit/cafe-jalu', 301);
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
 
